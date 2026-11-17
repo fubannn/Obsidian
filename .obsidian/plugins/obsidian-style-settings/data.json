@@ -1,0 +1,16 @@
+{
+  "glass-scholar@@gs-wp": "gs-wp-dayblue",
+  "glass-scholar@@gs-glow-opacity": 1,
+  "glass-scholar@@gs-glow-blur": 40,
+  "glass-scholar@@gs-use-serif": true,
+  "glass-scholar@@gs-indent": true,
+  "glass-scholar@@gs-justify": true,
+  "glass-scholar@@gs-dropcap": false,
+  "glass-scholar@@gs-line-height": 1.85,
+  "glass-scholar@@gs-autohide-ui": true,
+  "obsidian-velocity@@color-highlight-rgb": "var(--highlight-blue-rgb)",
+  "phycat-colors@@manual-accent-contrast": false,
+  "obsidian-velocity@@override-default-font": true,
+  "obsidian-velocity@@enable-special-code": true,
+  "obsidian-velocity@@enable-special-text": true
+}
