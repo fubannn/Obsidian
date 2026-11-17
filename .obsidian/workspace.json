@@ -189,6 +189,11 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "full-calendar-remastered:打开日历": false,
+      "full-calendar-remastered:FCR 命令": false,
+      "full-calendar-remastered:Open calendar agent": false,
+      "obsidian-excalidraw-plugin:新建绘图文件": false,
+      "obsidian-git:Open Git source control": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -201,6 +206,7 @@
   },
   "active": "decac9089e8521f9",
   "lastOpenFiles": [
+    "new",
     "test.md",
     "未命名.base",
     "未命名.canvas",
