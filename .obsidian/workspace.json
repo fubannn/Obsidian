@@ -20,8 +20,19 @@
               "icon": "lucide-file",
               "title": "test"
             }
+          },
+          {
+            "id": "2febe10d8c294611",
+            "type": "leaf",
+            "state": {
+              "type": "full-calendar-view",
+              "state": {},
+              "icon": "calendar-glyph",
+              "title": "Calendar"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -83,7 +94,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "98546446d7327ba1",
@@ -93,6 +104,20 @@
         "id": "ed28ed5897f6c70c",
         "type": "tabs",
         "children": [
+          {
+            "id": "e1b53fb6ec4a9890",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大纲"
+            }
+          },
           {
             "id": "26a3e4b6472dbf5a",
             "type": "leaf",
@@ -156,22 +181,7 @@
             }
           },
           {
-            "id": "e1b53fb6ec4a9890",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "test.md",
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "大纲"
-            }
-          },
-          {
-            "id": "5c1b1005f6e5157c",
+            "id": "4199eb7485633064",
             "type": "leaf",
             "state": {
               "type": "calendar",
@@ -180,18 +190,32 @@
               "title": "Calendar"
             }
           }
-        ],
-        "currentTab": 1
+        ]
+      },
+      {
+        "id": "38d021db05091fad",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c5cf5cfc05ca99e2",
+            "type": "leaf",
+            "state": {
+              "type": "journal-view:b9f3a1c2-0d4e-4f6a-8b1c-2d3e4f5a6b7c",
+              "state": {},
+              "icon": "calendar-days",
+              "title": "日历"
+            }
+          }
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 356.5
   },
   "left-ribbon": {
     "hiddenItems": {
       "full-calendar-remastered:打开日历": false,
       "full-calendar-remastered:FCR 命令": false,
-      "full-calendar-remastered:Open calendar agent": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
       "obsidian-git:Open Git source control": false,
       "switcher:打开快速切换": false,
@@ -201,13 +225,17 @@
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
       "bases:新建数据库": false,
-      "templater-obsidian:Templater": false
+      "templater-obsidian:Templater": false,
+      "workspaces:管理工作区布局": false,
+      "full-calendar-remastered:Open calendar agent": false
     }
   },
-  "active": "decac9089e8521f9",
+  "active": "2febe10d8c294611",
   "lastOpenFiles": [
-    "new",
     "test.md",
+    "Pasted image 20261118170053.png",
+    "2026-11-19.md",
+    "new",
     "未命名.base",
     "未命名.canvas",
     "给覅的.md",

@@ -1,13 +1,13 @@
 {
   "sidebarConfig": {
     "enabled": true,
-    "width": 290,
+    "width": 257,
     "isCollapsed": false,
     "collapsedModules": {
-      "mini-month": false,
-      "up-next": false,
+      "mini-month": true,
+      "up-next": true,
       "task-backlog": false,
-      "agent": false
+      "agent": true
     },
     "moduleOrder": [
       "mini-month",
@@ -24,16 +24,26 @@
     "endTime": "17:00"
   },
   "useLegacyPlaintextCredentials": false,
-  "calendarSources": [],
+  "calendarSources": [
+    {
+      "type": "dailynote",
+      "name": "新建 Dailynote 日历",
+      "color": "#3b82f6",
+      "id": "dailynote_1",
+      "heading": "日程",
+      "format": "dayPlanner",
+      "provider": "daily-notes"
+    }
+  ],
   "defaultCalendarId": null,
-  "firstDay": 0,
+  "firstDay": 1,
   "initialView": {
     "desktop": "timeGridWeek",
     "mobile": "timeGrid3Days"
   },
-  "timeFormat24h": false,
+  "timeFormat24h": true,
   "clickToCreateEventFromMonthView": true,
-  "displayTimezone": "Asia/Shanghai",
+  "displayTimezone": "Asia/Hong_Kong",
   "lastSystemTimezone": "Asia/Shanghai",
   "enableAdvancedCategorization": false,
   "chrono_analyser_config": null,
@@ -117,16 +127,16 @@
   "linkedNoteLinkStrategy": "deadline",
   "taskBacklogLastProviderId": "",
   "caldavTaskInboxLastCalendarId": "",
-  "weatherCity": "",
-  "weatherLatitude": null,
-  "weatherLongitude": null,
+  "weatherCity": "guangzhou",
+  "weatherLatitude": 23.11667,
+  "weatherLongitude": 113.25,
   "weatherHide": false,
   "weatherInputMode": "city",
   "weatherUnit": "C",
   "linkedNoteTemplate": "# {{title}}\n\n**Date**: {{date}}\n**Time**: {{timeString}}\n**Location**: {{location}}\n**Calendar**: {{calendarName}}\n\n## Description\n{{description}}\n\n## Notes\n- ",
   "enableLinkedNoteTemplatesPreset": false,
   "linkedNoteTemplatesPresets": [],
-  "openDailyNoteOnDateClick": false,
+  "openDailyNoteOnDateClick": true,
   "breakTimer": {
     "enabled": false,
     "intervalMins": 60,
