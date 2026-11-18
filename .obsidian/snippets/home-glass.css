@@ -1,0 +1,98 @@
+/* Delphi Home — Velocity 适配的液态玻璃卡片
+   用法：把这个文件放进库里的 .obsidian/snippets/
+   设置 → 外观 → CSS 代码片段 → 打开 home-glass
+   只对带 cssclasses: home-page 的笔记生效，不影响其他笔记
+*/
+
+/* 顶栏 */
+.home-page .home-top {
+  margin: 8px 4px 16px 4px;
+}
+
+.home-page .home-greeting {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.home-page .home-date {
+  font-size: 14px;
+  opacity: 0.65;
+  margin-top: 4px;
+}
+
+/* 三栏网格：窄屏自动变一栏 */
+.home-page .home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .home-page .home-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 液态玻璃卡片 */
+.home-page .glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  padding: 16px 18px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* 宽卡片：占两栏 */
+.home-page .glass-wide {
+  grid-column: span 2;
+}
+
+@media (max-width: 900px) {
+  .home-page .glass-wide {
+    grid-column: span 1;
+  }
+}
+
+/* 深色模式：Velocity Gray 底上的玻璃 */
+.theme-dark .home-page .glass-card {
+  background: rgba(30, 30, 32, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* 卡片里的标题不要太大 */
+.home-page .glass-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* 底部 Dock */
+.home-page .home-dock {
+  margin-top: 16px;
+  padding: 12px 16px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 999px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark .home-page .home-dock {
+  background: rgba(30, 30, 32, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Home 页正文不要太宽，留出桌面感 */
+.home-page .markdown-preview-view {
+  max-width: 1100px;
+}
