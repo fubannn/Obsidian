@@ -4,7 +4,5 @@
   "theme": "moonstone",
   "interfaceFontFamily": "",
   "textFontFamily": "霞鹜文楷",
-  "enabledCssSnippets": [
-    "home-glass"
-  ]
+  "enabledCssSnippets": []
 }
