@@ -4,10 +4,10 @@
     "width": 257,
     "isCollapsed": false,
     "collapsedModules": {
-      "mini-month": true,
+      "mini-month": false,
       "up-next": true,
-      "task-backlog": false,
-      "agent": true
+      "task-backlog": true,
+      "agent": false
     },
     "moduleOrder": [
       "mini-month",
@@ -26,13 +26,58 @@
   "useLegacyPlaintextCredentials": false,
   "calendarSources": [
     {
-      "type": "dailynote",
-      "name": "新建 Dailynote 日历",
-      "color": "#3b82f6",
-      "id": "dailynote_1",
-      "heading": "日程",
-      "format": "dayPlanner",
-      "provider": "daily-notes"
+      "type": "local",
+      "name": "作业",
+      "color": "#ffb7c5",
+      "id": "local_1",
+      "directory": "05_Calendar/Assignments",
+      "template": "# {{title}}\n\n**时间**：{{date}} {{timeString}}\n**地点**：{{location}}\n**日历**：{{calendarName}}\n\n## Description\n{{description}}\n\n## 要做的事\n- \n\n## 准备材料\n- \n\n## 记录\n- \n\n## 相关笔记\n- \n",
+      "taskCompletionStyle": "datetime"
+    },
+    {
+      "type": "local",
+      "name": "课程",
+      "color": "#a5cdff",
+      "id": "local_2",
+      "directory": "05_Calendar/Courses",
+      "template": "# {{title}}\n\n**时间**：{{date}} {{timeString}}\n**地点**：{{location}}\n**日历**：{{calendarName}}\n\n## Description\n{{description}}\n\n## 要做的事\n- \n\n## 准备材料\n- \n\n## 记录\n- \n\n## 相关笔记\n- \n",
+      "taskCompletionStyle": "datetime"
+    },
+    {
+      "type": "local",
+      "name": "考试",
+      "color": "#ffd1a5",
+      "id": "local_3",
+      "directory": "05_Calendar/Exams",
+      "template": "# {{title}}\n\n**时间**：{{date}} {{timeString}}\n**地点**：{{location}}\n**日历**：{{calendarName}}\n\n## Description\n{{description}}\n\n## 要做的事\n- \n\n## 准备材料\n- \n\n## 记录\n- \n\n## 相关笔记\n- \n",
+      "taskCompletionStyle": "datetime"
+    },
+    {
+      "type": "local",
+      "name": "习惯",
+      "color": "#cdb6f2",
+      "id": "local_4",
+      "directory": "05_Calendar/Habits",
+      "template": "# {{title}}\n\n**时间**：{{date}} {{timeString}}\n**地点**：{{location}}\n**日历**：{{calendarName}}\n\n## Description\n{{description}}\n\n## 要做的事\n- \n\n## 准备材料\n- \n\n## 记录\n- \n\n## 相关笔记\n- \n",
+      "taskCompletionStyle": "datetime"
+    },
+    {
+      "type": "local",
+      "name": "生活",
+      "color": "#cbd5e1",
+      "id": "local_5",
+      "directory": "05_Calendar/Life",
+      "template": "# {{title}}\n\n**时间**：{{date}} {{timeString}}\n**地点**：{{location}}\n**日历**：{{calendarName}}\n\n## Description\n{{description}}\n\n## 要做的事\n- \n\n## 准备材料\n- \n\n## 记录\n- \n\n## 相关笔记\n- \n",
+      "taskCompletionStyle": "datetime"
+    },
+    {
+      "type": "local",
+      "name": "会议",
+      "color": "#a8e0b4",
+      "id": "local_6",
+      "directory": "05_Calendar/Meetings",
+      "template": "# {{title}}\n\n**时间**：{{date}} {{timeString}}\n**地点**：{{location}}\n**日历**：{{calendarName}}\n\n## Description\n{{description}}\n\n## 要做的事\n- \n\n## 准备材料\n- \n\n## 记录\n- \n\n## 相关笔记\n- \n",
+      "taskCompletionStyle": "datetime"
     }
   ],
   "defaultCalendarId": null,
@@ -104,7 +149,18 @@
     "backlogQuery": ""
   },
   "milestones": {
-    "counters": {},
+    "counters": {
+      "created.total": 2,
+      "created.local": 2,
+      "meta.firstActionAt": 1794997037394,
+      "meta.lastActionAt": 1794998174149,
+      "day.action.2026-11-18": 4,
+      "day.created.2026-11-18": 2,
+      "deleted.total": 1,
+      "deleted.local": 1,
+      "updated.total": 1,
+      "updated.local": 1
+    },
     "unlockedAt": {},
     "shown": {}
   },
@@ -130,7 +186,7 @@
   "weatherCity": "guangzhou",
   "weatherLatitude": 23.11667,
   "weatherLongitude": 113.25,
-  "weatherHide": false,
+  "weatherHide": true,
   "weatherInputMode": "city",
   "weatherUnit": "C",
   "linkedNoteTemplate": "# {{title}}\n\n**Date**: {{date}}\n**Time**: {{timeString}}\n**Location**: {{location}}\n**Calendar**: {{calendarName}}\n\n## Description\n{{description}}\n\n## Notes\n- ",

@@ -7,5 +7,13 @@
       "key": "G"
     }
   ],
-  "graph:open": []
+  "graph:open": [],
+  "full-calendar-remastered:full-calendar-open": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "Q"
+    }
+  ]
 }
