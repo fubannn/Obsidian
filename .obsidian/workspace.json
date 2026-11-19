@@ -1,40 +1,27 @@
 {
   "main": {
-    "id": "33843feee17ac09f",
+    "id": "5324373015726ba8",
     "type": "split",
     "children": [
       {
-        "id": "7547fad3b300f9ef",
+        "id": "4509724f8bf84da7",
         "type": "tabs",
         "children": [
           {
-            "id": "30cdbd4c5ab0d898",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "full-calendar-view",
-              "state": {},
-              "pinned": true,
-              "icon": "calendar-glyph",
-              "title": "Calendar"
-            }
-          },
-          {
-            "id": "3a8d770eb87d656f",
+            "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "test.md",
+                "file": "Home.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "test"
+              "title": "Home"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -192,6 +179,16 @@
               "icon": "calendar-with-checkmark",
               "title": "Calendar"
             }
+          },
+          {
+            "id": "3c419f6af8829868",
+            "type": "leaf",
+            "state": {
+              "type": "journal-view:b9f3a1c2-0d4e-4f6a-8b1c-2d3e4f5a6b7c",
+              "state": {},
+              "icon": "calendar-days",
+              "title": "日历"
+            }
           }
         ],
         "currentTab": 5
@@ -202,6 +199,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "homepage:Open homepage": false,
       "full-calendar-remastered:打开日历": false,
       "full-calendar-remastered:FCR 命令": false,
       "obsidian-excalidraw-plugin:新建绘图文件": false,
@@ -218,8 +216,9 @@
       "full-calendar-remastered:Open calendar agent": false
     }
   },
-  "active": "3a8d770eb87d656f",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "test.md",
     "Home.md.tmp.47616.342520cbab97",
     "98_Templates/Daily-Note.md",
     "98_Templates/Daily-Note.md.tmp.47616.3c45ea98145a",
@@ -231,13 +230,11 @@
     "98_Templates/未确认 137648.crdownload",
     "05_Calendar/Assignments/2026-11-20 计网大作业.md",
     "未确认 396147.crdownload",
-    "test.md",
     "未确认 385003.crdownload",
     "05_Calendar/Exams",
     "05_Calendar/Meetings",
     "05_Calendar/Life",
     "05_Calendar/Habits",
-    "05_Calendar/Assignments",
     "2026-11-16.md",
     "Pasted image 20261118170053.png",
     "2026-11-19.md",
