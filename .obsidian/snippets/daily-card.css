@@ -1,0 +1,79 @@
+/* Delphi Daily Note — Velocity 适配的液态玻璃日记卡片
+   用法：放进 .obsidian/snippets/daily-card.css
+   设置 → 外观 → CSS 代码片段 → 打开 daily-card
+   只对 cssclasses: daily-card 的笔记生效
+*/
+
+/* 大字日期 */
+.daily-card h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+/* 玻璃卡片：所有 callout 通用 */
+.daily-card .callout {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  padding: 10px 16px 14px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --callout-icon: none;
+}
+
+.daily-card .callout .callout-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.daily-card .callout .callout-icon {
+  display: none;
+}
+
+/* 四张卡片各自的浅色点缀 */
+.daily-card .callout[data-callout="summary"] {
+  border-left: 4px solid rgb(165, 205, 255);
+}
+
+.daily-card .callout[data-callout="tip"] {
+  border-left: 4px solid rgb(205, 182, 242);
+}
+
+.daily-card .callout[data-callout="success"] {
+  border-left: 4px solid rgb(168, 224, 180);
+}
+
+.daily-card .callout[data-callout="todo"] {
+  border-left: 4px solid rgb(255, 183, 197);
+}
+
+/* 深色模式 */
+.theme-dark .daily-card .callout {
+  background: rgba(30, 30, 32, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.theme-dark .daily-card .callout[data-callout="summary"] {
+  border-left: 4px solid rgb(165, 205, 255);
+}
+
+.theme-dark .daily-card .callout[data-callout="tip"] {
+  border-left: 4px solid rgb(205, 182, 242);
+}
+
+.theme-dark .daily-card .callout[data-callout="success"] {
+  border-left: 4px solid rgb(168, 224, 180);
+}
+
+.theme-dark .daily-card .callout[data-callout="todo"] {
+  border-left: 4px solid rgb(255, 183, 197);
+}
+
+/* 日记正文不要太宽 */
+.daily-card .markdown-preview-view {
+  max-width: 900px;
+}

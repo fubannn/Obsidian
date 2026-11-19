@@ -1,11 +1,11 @@
 {
   "sidebarConfig": {
     "enabled": true,
-    "width": 257,
+    "width": 241,
     "isCollapsed": false,
     "collapsedModules": {
       "mini-month": false,
-      "up-next": true,
+      "up-next": false,
       "task-backlog": true,
       "agent": false
     },
@@ -150,16 +150,18 @@
   },
   "milestones": {
     "counters": {
-      "created.total": 2,
-      "created.local": 2,
+      "created.total": 4,
+      "created.local": 4,
       "meta.firstActionAt": 1794997037394,
-      "meta.lastActionAt": 1794998174149,
+      "meta.lastActionAt": 1795051104340,
       "day.action.2026-11-18": 4,
       "day.created.2026-11-18": 2,
       "deleted.total": 1,
       "deleted.local": 1,
       "updated.total": 1,
-      "updated.local": 1
+      "updated.local": 1,
+      "day.action.2026-11-19": 2,
+      "day.created.2026-11-19": 2
     },
     "unlockedAt": {},
     "shown": {}
