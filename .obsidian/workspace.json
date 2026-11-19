@@ -83,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "98546446d7327ba1",
@@ -195,7 +196,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 265.1666259765625
+    "width": 265.1666259765625,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -218,11 +220,13 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "Home.md",
+    "Home.md.tmp.47616.2c518c8a14d5",
+    "Home.md.tmp.47616.41071dc23960",
     "test.md",
     "Home.md.tmp.47616.342520cbab97",
     "98_Templates/Daily-Note.md",
     "98_Templates/Daily-Note.md.tmp.47616.3c45ea98145a",
-    "Home.md",
     "Home.md.tmp.47616.f65204a1c1f9",
     "05_Calendar/Assignments/2026-11-20 大物作业.md",
     "05_Calendar/Assignments/2026-11-19 电路作业.md",
@@ -233,8 +237,6 @@
     "未确认 385003.crdownload",
     "05_Calendar/Exams",
     "05_Calendar/Meetings",
-    "05_Calendar/Life",
-    "05_Calendar/Habits",
     "2026-11-16.md",
     "Pasted image 20261118170053.png",
     "2026-11-19.md",

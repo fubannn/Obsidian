@@ -163,6 +163,51 @@ async function openDaily(day) {
   await app.workspace.getLeaf(false).openFile(file);
 }
 
+// ---------------- 侧栏自动收放 ----------------
+// 进入 Home：快照侧栏状态并收起左右分栏，让主页铺满
+// 离开 Home：恢复之前的状态
+// 用 window 标志保证多处渲染（dataviewjs 重跑）只注册一次
+if (!window.__homeSidebarHook) {
+  window.__homeSidebarHook = true;
+
+  let savedLeft = null;
+  let savedRight = null;
+  let inHome = false;
+
+  function isHomeFile(path) {
+    return !!path && path.endsWith("Home.md");
+  }
+
+  function sync() {
+    const f = app.workspace.getActiveFile();
+    const nowHome = !!f && isHomeFile(f.path);
+    const ls = app.workspace.leftSplit;
+    const rs = app.workspace.rightSplit;
+
+    if (nowHome && !inHome) {
+      // 进入 Home：先快照，再收起
+      savedLeft = ls ? ls.collapsed : null;
+      savedRight = rs ? rs.collapsed : null;
+      if (ls && !ls.collapsed) ls.collapse();
+      if (rs && !rs.collapsed) rs.collapse();
+      inHome = true;
+    } else if (!nowHome && inHome) {
+      // 离开 Home：恢复
+      if (ls && savedLeft === false) ls.expand();
+      if (rs && savedRight === false) rs.expand();
+      savedLeft = null;
+      savedRight = null;
+      inHome = false;
+    }
+  }
+
+  app.workspace.on("active-leaf-change", sync);
+  app.workspace.on("layout-change", sync);
+
+  // 启动时同步一次
+  setTimeout(sync, 0);
+}
+
 // ---------------- 渲染 ----------------
 const root = el(dv.container, "div", "home-dash");
 
