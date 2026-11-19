@@ -77,3 +77,72 @@
 .daily-card .markdown-preview-view {
   max-width: 900px;
 }
+
+/* ---------- 日记里的今日日程列表 ---------- */
+.daily-card .daily-events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 2px 0 10px 0;
+}
+
+.daily-card .daily-ev {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  transition: background 0.12s ease;
+}
+
+.daily-card .daily-ev:hover {
+  background: rgba(120, 120, 128, 0.09);
+}
+
+.theme-dark .daily-card .daily-ev:hover {
+  background: rgba(235, 235, 245, 0.08);
+}
+
+.daily-card .daily-ev-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.daily-card .daily-ev-title {
+  font-weight: 550;
+  color: var(--text-normal);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.daily-card .daily-ev-title:hover {
+  color: var(--interactive-accent);
+  text-decoration: none;
+}
+
+.daily-card .daily-ev-time {
+  font-size: 12px;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.theme-dark .daily-card .daily-ev-time {
+  color: rgba(235, 235, 245, 0.62);
+}
+
+.daily-card .daily-ev-cal {
+  margin-left: auto;
+  font-size: 11px;
+  color: rgba(60, 60, 67, 0.45);
+}
+
+.theme-dark .daily-card .daily-ev-cal {
+  color: rgba(235, 235, 245, 0.42);
+}
+
+.daily-card .daily-ev.is-done .daily-ev-title {
+  text-decoration: line-through;
+  opacity: 0.5;
+}

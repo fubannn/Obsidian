@@ -5,7 +5,7 @@
     "isCollapsed": false,
     "collapsedModules": {
       "mini-month": false,
-      "up-next": false,
+      "up-next": true,
       "task-backlog": true,
       "agent": false
     },
