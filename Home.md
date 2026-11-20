@@ -319,8 +319,28 @@ for (const [folder, cal] of Object.entries(CAL)) {
   }
 }
 
-/* ===== 3. 快速添加 / 本周总览 / 近期日程 ===== */
-const mid = el(grid, "div", "home-mid");
+/* ===== 3. 主区：四列网格（分类进度 / 本周总览 / 近期日程 / 快速添加+日历） ===== */
+const main = el(grid, "div", "home-main");
+const dirRow = el(main, "div", "home-dir");
+for (const [folder, cal] of Object.entries(CAL)) {
+  const evs = weekEvents.filter((e) => e.folder === folder);
+  const done = evs.filter((e) => e.done).length;
+  const card = el(dirRow, "div", "home-dir-card");
+  const head = el(card, "div", "home-dir-head");
+  const dot = el(head, "span", "home-cat-dot");
+  dot.style.background = cal.color;
+  el(head, "span", "home-dir-name", cal.name);
+  el(head, "span", "home-dir-count", String(evs.length));
+
+  const track = el(card, "div", "home-dir-track");
+  const fill = el(track, "div", "home-dir-fill");
+  fill.style.background = cal.color;
+  fill.style.width = evs.length ? Math.round((done / evs.length) * 100) + "%" : "0%";
+
+  el(card, "div", "home-dir-sub", `本周 ${evs.length} 件 · 已完成 ${done}`);
+}
+
+const mid = main; // 快速添加 / 本周总览 / 近期日程 直接放进主区网格，位置由 CSS 决定
 
 // 快速添加
 const qaCard = el(mid, "div", "home-card home-quickadd");
@@ -417,28 +437,33 @@ if (!allRows.length) {
   for (const e of allRows) renderRow(agList, e);
 }
 
-/* ===== 4. 分类进度 ===== */
-const dirRow = el(grid, "div", "home-dir");
-for (const [folder, cal] of Object.entries(CAL)) {
-  const evs = weekEvents.filter((e) => e.folder === folder);
-  const done = evs.filter((e) => e.done).length;
-  const card = el(dirRow, "div", "home-dir-card");
-  const head = el(card, "div", "home-dir-head");
-  const dot = el(head, "span", "home-cat-dot");
-  dot.style.background = cal.color;
-  el(head, "span", "home-dir-name", cal.name);
-  el(head, "span", "home-dir-count", String(evs.length));
-
-  const track = el(card, "div", "home-dir-track");
-  const fill = el(track, "div", "home-dir-fill");
-  fill.style.background = cal.color;
-  fill.style.width = evs.length ? Math.round((done / evs.length) * 100) + "%" : "0%";
-
-  el(card, "div", "home-dir-sub", `本周 ${evs.length} 件 · 已完成 ${done}`);
+// 最近笔记（按修改时间）
+const recentCard = el(main, "div", "home-card home-recent");
+const recentHead = el(recentCard, "div", "home-card-head");
+el(recentHead, "div", "home-card-title", "最近笔记");
+el(recentHead, "div", "home-mini-note", "按修改时间");
+const recentList = el(recentCard, "div", "home-recent-list");
+const recentFiles = (app.vault.getMarkdownFiles ? app.vault.getMarkdownFiles() : [])
+  .filter((f) => f.path !== "Home.md" && !f.path.startsWith("98_Templates/") && !f.path.startsWith("99_Attachments/") && f.stat)
+  .sort((a, b) => (b.stat.mtime || 0) - (a.stat.mtime || 0))
+  .slice(0, 8);
+if (!recentFiles.length) {
+  el(recentList, "div", "home-empty", "暂无笔记");
+} else {
+  for (const f of recentFiles) {
+    const item = el(recentList, "div", "home-recent-item");
+    item.title = f.path;
+    const body = el(item, "div", "home-recent-main");
+    el(body, "div", "home-recent-name", f.basename);
+    const folderPath = f.parent?.path && f.parent.path !== "/" ? f.parent.path : "根目录";
+    el(body, "div", "home-recent-path", folderPath);
+    el(item, "div", "home-recent-time", M(f.stat.mtime).locale("zh-cn").fromNow());
+    item.addEventListener("click", () => app.workspace.openLinkText(f.path, "", false));
+  }
 }
 
-/* ===== 5. 热力图 + 日历 ===== */
-const foot = el(grid, "div", "home-foot");
+/* ===== 5. 热力图 + 日历（与上面的卡片同在 home-main 四列网格里） ===== */
+const foot = main;
 
 // 热力图
 const heatCard = el(foot, "div", "home-card home-heat");
@@ -533,10 +558,12 @@ function lockHomeToPreview() {
       if (typeof v.getMode === "function" && v.getMode() === "preview") continue;
       const cmEl = v.contentEl?.querySelector?.(".cm-editor");
       if (cmEl && cmEl.contains(document.activeElement)) continue;
-      if (typeof v.setMode === "function") v.setMode("preview");
-      else {
-        const st = v.getState?.();
-        if (st) v.setState(Object.assign({}, st, { mode: "preview" }), { history: false });
+      // setMode 需要的是模式对象（v.previewMode），传字符串会让 currentMode 变成字符串，
+      // 之后每次窗格 resize 都会抛 "currentMode.onResize is not a function"。
+      // 这里走官方的 setViewState，由 Obsidian 自己按名字查模式对象。
+      const vs = leaf.getViewState();
+      if (vs?.state && vs.state.mode !== "preview") {
+        leaf.setViewState({ ...vs, state: { ...vs.state, mode: "preview" } }, { focus: false });
       }
     }
   } catch (e) {

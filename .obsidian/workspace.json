@@ -10,14 +10,29 @@
           {
             "id": "e7a7b303c61786dc",
             "type": "leaf",
+            "pinned": true,
             "state": {
               "type": "markdown",
               "state": {
                 "file": "Home.md",
+                "mode": "preview",
                 "source": false
               },
+              "pinned": true,
               "icon": "lucide-file",
               "title": "Home"
+            }
+          },
+          {
+            "id": "4bdb32801947b946",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "full-calendar-view",
+              "state": {},
+              "pinned": true,
+              "icon": "calendar-glyph",
+              "title": "Calendar"
             }
           }
         ]
@@ -82,7 +97,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "98546446d7327ba1",
@@ -218,20 +234,22 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "Home.md.tmp.45048.dff43bd2345f",
+    "01_Diary/2026-11-20.md",
     "Home.md",
+    "Home.md.tmp.45048.0e4c76b72b0c",
+    "test.md",
+    "Home.md.tmp.45048.942cd1c4f8bb",
+    "Home.md.tmp.45048.7aef265a6831",
+    "Home.md.tmp.45048.5d2ad8d1376f",
+    "Home.md.tmp.45048.c1eb23b10a1f",
     "Home.md.tmp.45048.86bb8d7307e8",
     "Home.md.tmp.45048.d332737b797d",
     "Home.md.tmp.47616.cdf7ea1800a6",
     "05_Calendar/Assignments/2026-11-20 计网大作业.md",
     "Home.md.tmp.47616.c0a71dd6e4e3",
     "Home.md.tmp.47616.ee487d59666c",
-    "Home.md.tmp.47616.51b893194f84",
-    "Home.md.tmp.47616.2c518c8a14d5",
-    "Home.md.tmp.47616.41071dc23960",
-    "test.md",
-    "Home.md.tmp.47616.342520cbab97",
     "98_Templates/Daily-Note.md",
-    "98_Templates/Daily-Note.md.tmp.47616.3c45ea98145a",
     "05_Calendar/Assignments/2026-11-20 大物作业.md",
     "05_Calendar/Assignments/2026-11-19 电路作业.md",
     "98_Templates/Daily-Note.md.md",

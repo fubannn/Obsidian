@@ -93,6 +93,8 @@
    这里只让 .view-content 成为尺寸容器，.home-dash 用 cqh/cqw 直接取窗格大小。 */
 .workspace-leaf-content:has(.home-dash) .view-content {
   container-type: size;
+  /* transform 让 view-content 成为 fixed 后代的包含块（实测 container-type 不够） */
+  transform: translateZ(0);
 }
 
 .workspace-leaf-content:has(.home-dash) .markdown-preview-sizer,
@@ -112,6 +114,12 @@
   padding: 0 !important;
   overflow: hidden !important;
   visibility: hidden;
+}
+
+/* Dashboard 用 fixed 脱离排版后，给它所在的章节垫一个窗格高度，
+   避免阅读视图的虚拟渲染把“没有高度”的章节摘掉。 */
+.workspace-leaf-content:has(.home-dash) .el-pre:has(.home-dash) {
+  min-height: 100cqh;
 }
 
 /* 编辑模式兜底：即便暂时处于 Live Preview，也没有光标、没有滚动条 */
@@ -152,19 +160,24 @@
 /* ============================================================
    Dashboard 主体
    ============================================================ */
+/* .view-content 设了 container-type:size，会对 fixed 后代建立包含块，
+   所以这里 inset:0 就等于铺满整个笔记窗格内容区；
+   同时 fixed 完全脱离阅读区内部的排版，主题/插件造成的内边距、居中偏移、
+   甚至 overflow:hidden 裁切都影响不到 Dashboard。 */
 .home-page .home-dash {
-  height: 100cqh;
-  width: 100cqw;
+  position: fixed;
+  inset: 0;
   min-height: 0;
   padding: 14px 18px 16px 18px;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .home-page .home-grid {
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 0.55fr) minmax(0, 0.85fr) auto minmax(0, 1.3fr);
+  grid-template-rows: auto minmax(0, 0.45fr) minmax(0, 1.55fr);
   gap: 12px;
 }
 
@@ -470,13 +483,27 @@
   padding: 6px 4px;
 }
 
-/* ---------- 3. 中排 ---------- */
-.home-page .home-mid {
+/* ---------- 3. 主区：四列两行 ----------
+   列①：分类进度（纵向 6 张）
+   列②：本周总览（上）/ 快速添加（下）
+   列③：近期日程（上）/ 最近笔记（下）
+   列④：本月热力图（上）/ 日历（下）
+   热力图与日历都拿到接近正方形的卡片比例。 */
+.home-page .home-main {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.05fr) minmax(0, 1.45fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.05fr) minmax(0, 1.5fr) minmax(0, 1.05fr);
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   gap: 10px;
   min-height: 0;
 }
+
+.home-page .home-main > .home-week { grid-column: 2; grid-row: 1; }
+.home-page .home-main > .home-quickadd { grid-column: 2; grid-row: 2; }
+.home-page .home-main > .home-heat { grid-column: 4; grid-row: 1; }
+.home-page .home-main > .home-cal { grid-column: 4; grid-row: 2; }
+.home-page .home-main > .home-agenda { grid-column: 3; grid-row: 1; }
+.home-page .home-main > .home-recent { grid-column: 3; grid-row: 2; }
+.home-page .home-main > .home-dir { grid-column: 1; grid-row: 1 / 3; }
 
 .home-page .home-card {
   display: flex;
@@ -707,6 +734,61 @@
   background: var(--hp-hover);
 }
 
+/* 最近笔记 */
+.home-page .home-recent-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0 -6px;
+  padding: 0 6px;
+}
+
+.home-page .home-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.home-page .home-recent-item:hover {
+  background: var(--hp-hover);
+}
+
+.home-page .home-recent-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.home-page .home-recent-name {
+  font-size: 12.5px;
+  font-weight: 550;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-page .home-recent-path {
+  font-size: 10px;
+  color: var(--hp-text-2);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-page .home-recent-time {
+  flex: none;
+  font-size: 10px;
+  color: var(--hp-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
 .home-page .home-row-dot {
   flex: 0 0 auto;
   width: 7px;
@@ -756,16 +838,22 @@
   color: var(--hp-text-2);
 }
 
-/* ---------- 4. 分类进度 ---------- */
+/* ---------- 4. 分类进度：主区第一列的纵向 6 张 ---------- */
 .home-page .home-dir {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(6, minmax(0, 1fr));
   gap: 10px;
+  min-height: 0;
 }
 
 .home-page .home-dir-card {
-  padding: 9px 12px;
+  padding: 10px 14px;
   min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .home-page .home-dir-head {
@@ -810,13 +898,6 @@
 }
 
 /* ---------- 5. 热力图 + 日历 ---------- */
-.home-page .home-foot {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  gap: 10px;
-  min-height: 0;
-}
-
 .home-page .home-heat {
   display: flex;
   flex-direction: column;
@@ -1020,6 +1101,23 @@
    响应式：窄窗格时允许纵向排列（不再强制一屏）
    ============================================================ */
 @media (max-width: 1150px) {
+  /* 窄窗格：Dashboard 不再一屏锁死，恢复页面纵向滚动 */
+  .workspace-leaf-content:has(.home-dash) .markdown-preview-view {
+    overflow-y: auto;
+  }
+
+  .home-page .home-dash {
+    position: static;
+    inset: auto;
+    height: auto;
+    min-height: 100cqh;
+    overflow: visible;
+  }
+
+  .workspace-leaf-content:has(.home-dash) .el-pre:has(.home-dash) {
+    min-height: 0;
+  }
+
   .home-page .home-grid {
     height: auto;
     grid-template-rows: none;
@@ -1031,27 +1129,33 @@
     grid-auto-rows: 140px;
   }
 
-  .home-page .home-mid {
-    grid-template-columns: minmax(0, 1fr);
+  .home-page .home-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 320px 320px auto auto auto;
   }
 
-  .home-page .home-mid .home-card {
-    min-height: 140px;
-  }
+  .home-page .home-main > .home-week { grid-column: 1; grid-row: 1; }
+  .home-page .home-main > .home-quickadd { grid-column: 1; grid-row: 2; }
+  .home-page .home-main > .home-heat { grid-column: 2; grid-row: 1; }
+  .home-page .home-main > .home-cal { grid-column: 2; grid-row: 2; }
 
-  .home-page .home-dir {
+  .home-page .home-main > .home-dir {
+    grid-column: 1 / span 2;
+    grid-row: 3;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-auto-rows: 92px;
   }
 
-  .home-page .home-foot {
-    grid-template-columns: minmax(0, 1fr);
+  .home-page .home-main > .home-agenda {
+    grid-column: 1 / span 2;
+    grid-row: 4;
+    min-height: 300px;
   }
 
-  .home-page .home-heat {
-    min-height: 220px;
-  }
-
-  .home-page .home-cal {
+  .home-page .home-main > .home-recent {
+    grid-column: 1 / span 2;
+    grid-row: 5;
     min-height: 260px;
   }
 }
@@ -1073,7 +1177,29 @@
     display: none;
   }
 
-  .home-page .home-dir {
+  .home-page .home-main {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-rows: 300px;
+  }
+
+  .home-page .home-main > .home-quickadd,
+  .home-page .home-main > .home-week,
+  .home-page .home-main > .home-heat,
+  .home-page .home-main > .home-cal,
+  .home-page .home-main > .home-agenda,
+  .home-page .home-main > .home-recent,
+  .home-page .home-main > .home-dir {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .home-page .home-main > .home-dir {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 88px;
+  }
+
+  .home-page .home-main > .home-agenda {
+    min-height: 320px;
   }
 }
