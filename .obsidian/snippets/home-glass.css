@@ -95,6 +95,32 @@
   box-sizing: border-box;
 }
 
+/* 编辑模式兜底：即便暂时处于 Live Preview，也没有光标、没有滚动条 */
+.workspace-leaf-content:has(.home-dash) .cm-editor,
+.workspace-leaf-content:has(.home-dash) .cm-content {
+  caret-color: transparent;
+}
+
+.workspace-leaf-content:has(.home-dash) .cm-cursor,
+.workspace-leaf-content:has(.home-dash) .cm-dropCursor,
+.workspace-leaf-content:has(.home-dash) .cm-cursorLayer,
+.workspace-leaf-content:has(.home-dash) .cm-selectionLayer {
+  display: none !important;
+}
+
+.workspace-leaf-content:has(.home-dash) .cm-scroller {
+  overflow: hidden !important;
+}
+
+.workspace-leaf-content:has(.home-dash) .cm-embed-block,
+.workspace-leaf-content:has(.home-dash) .cm-embed-block.cm-lang-dataviewjs,
+.workspace-leaf-content:has(.home-dash) .block-language-dataviewjs {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
 /* 隐藏属性栏与内联标题 */
 .workspace-leaf-content:has(.home-dash) .metadata-container {
   display: none !important;

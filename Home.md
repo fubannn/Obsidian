@@ -528,4 +528,34 @@ prevBtn.addEventListener("click", () => { viewMonth = viewMonth.minus({ months: 
 nextBtn.addEventListener("click", () => { viewMonth = viewMonth.plus({ months: 1 }); renderMonth(); });
 todayBtn.addEventListener("click", () => { viewMonth = today.startOf("month"); renderMonth(); });
 el(calCard, "div", "home-hint", "点击日期打开 / 创建当天日记");
+
+/* ===== 桌面模式：Home 打开时自动锁定阅读视图 =====
+   阅读视图没有光标、不可编辑、页面不滚动，才是真正的“桌面”。
+   若用户正把光标放在编辑器里（主动按 Ctrl+E 编辑），则不打扰。 */
+function lockHomeToPreview() {
+  try {
+    for (const leaf of app.workspace.getLeavesOfType("markdown")) {
+      const v = leaf.view;
+      if (!v || v.file?.path !== "Home.md") continue;
+      if (typeof v.getMode === "function" && v.getMode() === "preview") continue;
+      const cmEl = v.contentEl?.querySelector?.(".cm-editor");
+      if (cmEl && cmEl.contains(document.activeElement)) continue;
+      if (typeof v.setMode === "function") v.setMode("preview");
+      else {
+        const st = v.getState?.();
+        if (st) v.setState(Object.assign({}, st, { mode: "preview" }), { history: false });
+      }
+    }
+  } catch (e) {
+    console.warn("[home] lock preview failed", e);
+  }
+}
+
+if (!window.__homeDeskModeHook) {
+  window.__homeDeskModeHook = true;
+  app.workspace.on("file-open", (file) => {
+    if (file && file.path === "Home.md") setTimeout(lockHomeToPreview, 80);
+  });
+}
+setTimeout(lockHomeToPreview, 150);
 ```
