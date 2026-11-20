@@ -83,16 +83,35 @@
   height: 100%;
   overflow: hidden;
   padding: 0 !important;
+  scrollbar-gutter: auto;
+  position: relative;
+}
+
+/* 不再用 height:100% 逐层传递，也不隐藏 pusher / 章节：
+   Obsidian 的阅读视图会按每个章节的实测高度决定保留或摘除（虚拟渲染），
+   窗格变宽/变窄时会整体重测。强行改这些容器的高度，会让重测结果异常，页面变空白。
+   这里只让 .view-content 成为尺寸容器，.home-dash 用 cqh/cqw 直接取窗格大小。 */
+.workspace-leaf-content:has(.home-dash) .view-content {
+  container-type: size;
 }
 
 .workspace-leaf-content:has(.home-dash) .markdown-preview-sizer,
-.workspace-leaf-content:has(.home-dash) .markdown-preview-section:has(.home-dash),
+.workspace-leaf-content:has(.home-dash) .markdown-preview-section,
+.workspace-leaf-content:has(.home-dash) .el-pre:has(.home-dash),
 .workspace-leaf-content:has(.home-dash) .block-language-dataviewjs:has(.home-dash) {
-  height: 100%;
-  min-height: 0;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* 标题/属性区：保留布局盒（offsetTop 仍然有效），只是高度归零 */
+.workspace-leaf-content:has(.home-dash) .mod-header {
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden;
 }
 
 /* 编辑模式兜底：即便暂时处于 Live Preview，也没有光标、没有滚动条 */
@@ -134,7 +153,8 @@
    Dashboard 主体
    ============================================================ */
 .home-page .home-dash {
-  height: 100%;
+  height: 100cqh;
+  width: 100cqw;
   min-height: 0;
   padding: 14px 18px 16px 18px;
   box-sizing: border-box;
@@ -144,7 +164,7 @@
   height: 100%;
   min-height: 0;
   display: grid;
-  grid-template-rows: auto minmax(0, 1.12fr) minmax(0, 0.95fr) auto minmax(0, 1.08fr);
+  grid-template-rows: auto minmax(0, 0.55fr) minmax(0, 0.85fr) auto minmax(0, 1.3fr);
   gap: 12px;
 }
 
@@ -155,8 +175,6 @@
 .home-page .home-dir-card,
 .home-page .home-hero {
   background: var(--hp-card-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--hp-card-border);
   border-radius: var(--hp-radius);
   box-shadow: var(--hp-card-shadow);
@@ -309,11 +327,10 @@
 }
 
 .home-page .home-focus-label {
-  writing-mode: vertical-rl;
-  text-orientation: upright;
   font-size: 12px;
   font-weight: 600;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
+  white-space: nowrap;
   color: var(--hp-text-2);
 }
 
@@ -331,11 +348,15 @@
 
 .home-page .home-focus-list {
   width: 100%;
+  flex: 1;
+  min-height: 0;
   margin-top: 6px;
   display: flex;
   flex-direction: column;
   gap: 3px;
   overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent);
 }
 
 .home-page .home-focus-item {
@@ -791,7 +812,7 @@
 /* ---------- 5. 热力图 + 日历 ---------- */
 .home-page .home-foot {
   display: grid;
-  grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   gap: 10px;
   min-height: 0;
 }

@@ -183,12 +183,11 @@ async function createQuickEvent(title, folder, dateStr) {
 }
 
 // ---------------- 侧栏自动收放 ----------------
-// 进入 Home：快照侧栏状态并收起左右分栏，让主页铺满
-// 离开 Home：恢复之前的状态
+// 进入 Home：快照右侧栏状态并收起（左侧文件栏保持不动）
+// 离开 Home：恢复右侧栏之前的状态
 if (!window.__homeSidebarHook) {
   window.__homeSidebarHook = true;
 
-  let savedLeft = null;
   let savedRight = null;
   let inHome = false;
 
@@ -199,27 +198,21 @@ if (!window.__homeSidebarHook) {
   function sync() {
     const f = app.workspace.getActiveFile();
     const nowHome = !!f && isHomeFile(f.path);
-    const ls = app.workspace.leftSplit;
     const rs = app.workspace.rightSplit;
 
     if (nowHome && !inHome) {
-      savedLeft = ls ? ls.collapsed : null;
       savedRight = rs ? rs.collapsed : null;
       inHome = true;
-      const collapseAll = () => {
+      const collapseRight = () => {
         if (!inHome) return;
-        const l = app.workspace.leftSplit;
         const r = app.workspace.rightSplit;
-        if (l && !l.collapsed) l.collapse();
         if (r && !r.collapsed) r.collapse();
       };
-      collapseAll();
+      collapseRight();
       // 有些插件（如 Full Calendar 侧栏）会在启动稍晚时重新展开侧栏，补几次
-      [350, 1200, 2500].forEach((ms) => setTimeout(collapseAll, ms));
+      [350, 1200, 2500].forEach((ms) => setTimeout(collapseRight, ms));
     } else if (!nowHome && inHome) {
-      if (ls && savedLeft === false) ls.expand();
       if (rs && savedRight === false) rs.expand();
-      savedLeft = null;
       savedRight = null;
       inHome = false;
     }
