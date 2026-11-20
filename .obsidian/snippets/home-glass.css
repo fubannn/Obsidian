@@ -484,10 +484,10 @@
 }
 
 /* ---------- 3. 主区：四列两行 ----------
-   列①：分类进度（纵向 6 张）
+   列①：日历（上）/ 本月热力图（下）
    列②：本周总览（上）/ 快速添加（下）
    列③：近期日程（上）/ 最近笔记（下）
-   列④：本月热力图（上）/ 日历（下）
+   列④：分类进度（纵向 6 张，占两行）
    热力图与日历都拿到接近正方形的卡片比例。 */
 .home-page .home-main {
   display: grid;
@@ -499,11 +499,11 @@
 
 .home-page .home-main > .home-week { grid-column: 2; grid-row: 1; }
 .home-page .home-main > .home-quickadd { grid-column: 2; grid-row: 2; }
-.home-page .home-main > .home-heat { grid-column: 4; grid-row: 1; }
-.home-page .home-main > .home-cal { grid-column: 4; grid-row: 2; }
+.home-page .home-main > .home-cal { grid-column: 1; grid-row: 1; }
+.home-page .home-main > .home-heat { grid-column: 1; grid-row: 2; }
 .home-page .home-main > .home-agenda { grid-column: 3; grid-row: 1; }
 .home-page .home-main > .home-recent { grid-column: 3; grid-row: 2; }
-.home-page .home-main > .home-dir { grid-column: 1; grid-row: 1 / 3; }
+.home-page .home-main > .home-dir { grid-column: 4; grid-row: 1 / 3; }
 
 .home-page .home-card {
   display: flex;
@@ -1136,8 +1136,8 @@
 
   .home-page .home-main > .home-week { grid-column: 1; grid-row: 1; }
   .home-page .home-main > .home-quickadd { grid-column: 1; grid-row: 2; }
-  .home-page .home-main > .home-heat { grid-column: 2; grid-row: 1; }
-  .home-page .home-main > .home-cal { grid-column: 2; grid-row: 2; }
+  .home-page .home-main > .home-cal { grid-column: 2; grid-row: 1; }
+  .home-page .home-main > .home-heat { grid-column: 2; grid-row: 2; }
 
   .home-page .home-main > .home-dir {
     grid-column: 1 / span 2;
