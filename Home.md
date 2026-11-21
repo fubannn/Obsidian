@@ -247,6 +247,7 @@ bits.push(`本周已完成 ${weekDone}/${weekEvents.length}`);
 el(heroLeft, "div", "home-summary", bits.join(" · "));
 
 let timer = null;
+let tlNow = null; // 今日时间轴的“现在”红线（渲染后赋值，tick 里跟随秒针）
 function tick() {
   if (!document.body.contains(clock)) {
     if (timer) clearInterval(timer);
@@ -256,6 +257,21 @@ function tick() {
   const m = M();
   clock.textContent = m.format("HH:mm");
   clockSS.textContent = m.format("ss");
+  if (tlNow && document.body.contains(tlNow.line)) {
+    const t = DateTime.now();
+    const p = ((t.hour * 60 + t.minute + t.second / 60) - tlNow.start * 60) / tlNow.range * 100;
+    if (p >= 0 && p <= 100) {
+      tlNow.line.style.display = "";
+      tlNow.line.style.top = p + "%";
+      if (t.hour !== tlNow.lastHour || t.minute !== tlNow.lastMin) {
+        tlNow.lastHour = t.hour;
+        tlNow.lastMin = t.minute;
+        tlNow.label.textContent = "现在 " + t.toFormat("HH:mm");
+      }
+    } else {
+      tlNow.line.style.display = "none";
+    }
+  }
 }
 tick();
 timer = setInterval(tick, 1000);
@@ -319,25 +335,118 @@ for (const [folder, cal] of Object.entries(CAL)) {
   }
 }
 
-/* ===== 3. 主区：四列网格（分类进度 / 本周总览 / 近期日程 / 快速添加+日历） ===== */
+/* ===== 3. 主区：四列网格（今日时间轴 / 本周总览+快速添加 / 近期日程+最近笔记 / 日历+热力图） ===== */
 const main = el(grid, "div", "home-main");
-const dirRow = el(main, "div", "home-dir");
-for (const [folder, cal] of Object.entries(CAL)) {
-  const evs = weekEvents.filter((e) => e.folder === folder);
-  const done = evs.filter((e) => e.done).length;
-  const card = el(dirRow, "div", "home-dir-card");
-  const head = el(card, "div", "home-dir-head");
-  const dot = el(head, "span", "home-cat-dot");
-  dot.style.background = cal.color;
-  el(head, "span", "home-dir-name", cal.name);
-  el(head, "span", "home-dir-count", String(evs.length));
 
-  const track = el(card, "div", "home-dir-track");
-  const fill = el(track, "div", "home-dir-fill");
-  fill.style.background = cal.color;
-  fill.style.width = evs.length ? Math.round((done / evs.length) * 100) + "%" : "0%";
+// 今日时间轴：竖排小时轴，定时日程按真实时段落位，红线跟随当前时刻
+const tlCard = el(main, "div", "home-card home-timeline");
+const tlHead = el(tlCard, "div", "home-card-head");
+el(tlHead, "div", "home-card-title", "今日时间轴");
+el(tlHead, "div", "home-mini-note", `${today.toFormat("M月d日")} ${weekdayZh(today)}`);
 
-  el(card, "div", "home-dir-sub", `本周 ${evs.length} 件 · 已完成 ${done}`);
+// 全天日程 → 顶部小胶囊
+const tlAllDay = todayEvents.filter((e) => !e.timed);
+if (tlAllDay.length) {
+  const strip = el(tlCard, "div", "home-tl-allday");
+  el(strip, "span", "home-tl-allday-label", "全天");
+  const chips = el(strip, "div", "home-tl-chips");
+  for (const e of tlAllDay) {
+    const chip = el(chips, "span", "home-tl-chip" + (e.done ? " is-done" : ""));
+    chip.style.setProperty("--c", e.cal.color);
+    chip.title = `${e.title} · 全天`;
+    el(chip, "span", "home-tl-chip-dot");
+    el(chip, "span", "home-tl-chip-name", e.title);
+    chip.addEventListener("click", () => app.workspace.openLinkText(e.page.file.path, "", false));
+  }
+}
+
+// 今天带具体时段的日程（跨天事件裁到今天）
+const tlItems = [];
+for (const e of todayEvents.filter((x) => x.timed)) {
+  // 只写了开始时间（或结束 ≤ 开始）的日程按 30 分钟画，否则高度为 0 会直接从时间轴上消失
+  const realEnd = e.end > e.start ? e.end : e.start.plus({ minutes: 30 });
+  const a = e.start > today ? e.start : today;
+  const b = realEnd < todayEnd ? realEnd : todayEnd;
+  if (b > a) tlItems.push({ e, a, b, lane: 0, lanes: 1 });
+}
+tlItems.sort((x, y) => x.a - y.a);
+
+// 时间范围：默认 8:00–22:00，有更早/更晚的日程（或已过 22 点）就扩展
+let tlStart = 8;
+let tlEnd = 22;
+for (const it of tlItems) {
+  tlStart = Math.min(tlStart, it.a.hour);
+  tlEnd = Math.max(tlEnd, Math.ceil(it.b.hour + it.b.minute / 60));
+}
+tlEnd = Math.max(tlEnd, Math.min(24, Math.ceil(now.hour + now.minute / 60)));
+tlStart = Math.max(0, Math.min(22, tlStart));
+tlEnd = Math.min(24, Math.max(tlStart + 1, tlEnd));
+const tlRangeMin = (tlEnd - tlStart) * 60;
+const tlPct = (dt) => ((dt.hour * 60 + dt.minute + dt.second / 60) - tlStart * 60) / tlRangeMin * 100;
+
+// 重叠日程分列排：按冲突簇分 lane
+for (let i = 0; i < tlItems.length; ) {
+  let j = i;
+  let clusterEnd = tlItems[i].b;
+  while (j + 1 < tlItems.length && tlItems[j + 1].a < clusterEnd) {
+    j++;
+    if (tlItems[j].b > clusterEnd) clusterEnd = tlItems[j].b;
+  }
+  const laneEnds = [];
+  for (let k = i; k <= j; k++) {
+    const it = tlItems[k];
+    let li = laneEnds.findIndex((t) => t <= it.a);
+    if (li === -1) { li = laneEnds.length; laneEnds.push(it.b); } else laneEnds[li] = it.b;
+    it.lane = li;
+  }
+  for (let k = i; k <= j; k++) tlItems[k].lanes = laneEnds.length;
+  i = j + 1;
+}
+
+const tlBody = el(tlCard, "div", "home-tl-body");
+const tlHours = el(tlBody, "div", "home-tl-hours");
+const tlTrack = el(tlBody, "div", "home-tl-track");
+
+const tlStep = tlEnd - tlStart > 16 ? 2 : 1;
+for (let hh = tlStart; hh <= tlEnd; hh++) {
+  const p = ((hh - tlStart) * 60) / tlRangeMin * 100;
+  const line = el(tlTrack, "div", "home-tl-line" + (p <= 0 || p >= 100 ? " is-edge" : ""));
+  line.style.top = p + "%";
+  if ((hh - tlStart) % tlStep === 0) {
+    const lbl = el(tlHours, "div", "home-tl-hour", String(hh).padStart(2, "0"));
+    lbl.style.top = p + "%";
+  }
+}
+
+for (const it of tlItems) {
+  const top = Math.max(0, Math.min(100, tlPct(it.a)));
+  const hgt = Math.max(0.4, Math.min(100, tlPct(it.b)) - top);
+  const w = 100 / it.lanes;
+  const ev = el(tlTrack, "div", "home-tl-event"
+    + (it.e.done ? " is-done" : "")
+    + (it.b < now ? " is-past" : ""));
+  ev.style.top = top + "%";
+  ev.style.height = hgt + "%";
+  ev.style.left = `calc(${it.lane * w}% + 2px)`;
+  ev.style.width = `calc(${w}% - 5px)`;
+  ev.style.setProperty("--c", it.e.cal.color);
+  ev.title = `${it.e.title} · ${it.e.timeText}`;
+  const evIn = el(ev, "div", "home-tl-ev-in");
+  el(evIn, "div", "home-tl-ev-title", it.e.title);
+  el(evIn, "div", "home-tl-ev-time", it.e.timeText);
+  ev.addEventListener("click", () => app.workspace.openLinkText(it.e.page.file.path, "", false));
+}
+
+// “现在”红线（tick 每秒更新位置）
+const tlNowEl = el(tlTrack, "div", "home-tl-now");
+const tlNowLbl = el(tlNowEl, "span", "home-tl-now-label", "现在 " + now.toFormat("HH:mm"));
+const tlNowPct = tlPct(now);
+tlNowEl.style.top = Math.max(0, Math.min(100, tlNowPct)) + "%";
+if (tlNowPct < 0 || tlNowPct > 100) tlNowEl.style.display = "none";
+tlNow = { line: tlNowEl, label: tlNowLbl, start: tlStart, range: tlRangeMin, lastHour: null, lastMin: null };
+
+if (!tlItems.length) {
+  el(tlBody, "div", "home-tl-quiet", tlAllDay.length ? "今天只有全天日程" : "今天没有日程");
 }
 
 const mid = main; // 快速添加 / 本周总览 / 近期日程 直接放进主区网格，位置由 CSS 决定

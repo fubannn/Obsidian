@@ -1,26 +1,219 @@
-/* Delphi Daily Note — Velocity 适配的液态玻璃日记卡片
-   用法：放进 .obsidian/snippets/daily-card.css
-   设置 → 外观 → CSS 代码片段 → 打开 daily-card
-   只对 cssclasses: daily-card 的笔记生效
+/* Delphi Daily Note — 桌面卡阵版日记（和 Home 同一视觉体系）
+   模板：98_Templates/Daily-Note.md（cssclasses: daily-card）
+   排版在阅读视图生效（从 Home 点日期打开默认就是阅读视图）；
+   Ctrl+E 编辑时是普通文档流，写完切回阅读视图看卡片排版。
 */
 
-/* 大字日期 */
-.daily-card h1 {
+/* ============================================================
+   壁纸：和 home-glass.css 同一套淡灰渐变
+   ============================================================ */
+.workspace-leaf-content:has(.daily-card) {
+  background:
+    radial-gradient(900px 420px at 12% -12%, rgba(255, 214, 224, 0.34), transparent 60%),
+    radial-gradient(820px 420px at 88% -8%, rgba(198, 219, 255, 0.42), transparent 58%),
+    radial-gradient(760px 420px at 50% 112%, rgba(203, 230, 214, 0.36), transparent 62%),
+    linear-gradient(180deg, #f6f7f9 0%, #eceef2 100%) !important;
+}
+
+.theme-dark .workspace-leaf-content:has(.daily-card) {
+  background:
+    radial-gradient(900px 420px at 12% -12%, rgba(120, 88, 110, 0.26), transparent 60%),
+    radial-gradient(820px 420px at 88% -8%, rgba(68, 90, 132, 0.3), transparent 58%),
+    radial-gradient(760px 420px at 50% 112%, rgba(58, 100, 84, 0.24), transparent 62%),
+    linear-gradient(180deg, #1b1c1f 0%, #202226 100%) !important;
+}
+
+/* 内部容器透明，露出壁纸 */
+.workspace-leaf-content:has(.daily-card) .view-content,
+.workspace-leaf-content:has(.daily-card) .markdown-reading-view,
+.workspace-leaf-content:has(.daily-card) .markdown-preview-view,
+.workspace-leaf-content:has(.daily-card) .markdown-source-view,
+.workspace-leaf-content:has(.daily-card) .cm-scroller,
+.workspace-leaf-content:has(.daily-card) .cm-sizer,
+.workspace-leaf-content:has(.daily-card) .cm-content {
+  background: transparent !important;
+}
+
+/* Hero 里已有大字日期，正文里的 inline title 和属性栏收起来（编辑时属性栏仍在） */
+.daily-card .inline-title,
+.daily-card .metadata-container {
+  display: none;
+}
+
+/* ============================================================
+   阅读视图：桌面卡阵网格（Hero / 日程整行，四张卡两列两行）
+   ============================================================ */
+.daily-card .markdown-preview-sizer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  max-width: 920px !important;
+  margin: 0 auto !important;
+  padding: 28px 22px 48px !important;
+}
+
+.daily-card .markdown-preview-pusher {
+  grid-column: 1 / -1;
+}
+
+.daily-card .markdown-preview-sizer > .el-pre,
+.daily-card .markdown-preview-sizer > .el-callout {
+  margin: 0 !important;
+  min-width: 0;
+}
+
+.daily-card .el-pre:has(.daily-hero),
+.daily-card .el-pre:has(.daily-events) {
+  grid-column: 1 / -1;
+}
+
+/* 旧版日记的 H1 兜底：也占整行 */
+.daily-card .el-h1 {
+  grid-column: 1 / -1;
+}
+
+.daily-card .el-pre pre,
+.daily-card .el-pre .block-language-dataviewjs {
+  margin: 0 !important;
+}
+
+/* callout 撑满网格单元，同一行等高 */
+.daily-card .el-callout {
+  display: flex;
+}
+
+.daily-card .el-callout .callout {
+  flex: 1;
+}
+
+/* ============================================================
+   Hero：大字日期 + 周信息 + 心情/精力胶囊
+   ============================================================ */
+.daily-card .daily-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 20px;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.52));
+  box-shadow: 0 6px 24px rgba(30, 40, 60, 0.06);
+}
+
+.theme-dark .daily-card .daily-hero {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(120deg, rgba(58, 60, 66, 0.72), rgba(40, 41, 46, 0.5));
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+}
+
+.daily-card .daily-hero-left {
+  min-width: 0;
+}
+
+.daily-card .daily-hero-date {
   font-size: 30px;
   font-weight: 700;
   letter-spacing: -0.5px;
-  margin-bottom: 4px;
+  line-height: 1.15;
 }
 
-/* 玻璃卡片：所有 callout 通用 */
-.daily-card .callout {
-  background: rgba(255, 255, 255, 0.55);
+.daily-card .daily-hero-sub {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(60, 60, 67, 0.6);
+}
+
+.theme-dark .daily-card .daily-hero-sub {
+  color: rgba(235, 235, 245, 0.62);
+}
+
+.daily-card .daily-hero-meters {
+  display: flex;
+  gap: 26px;
+  flex: none;
+}
+
+.daily-card .daily-meter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.daily-card .daily-meter-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(60, 60, 67, 0.45);
+}
+
+.theme-dark .daily-card .daily-meter-label {
+  color: rgba(235, 235, 245, 0.42);
+}
+
+.daily-card .daily-meter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.daily-card .daily-mood {
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.32;
+  filter: grayscale(1);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.daily-card .daily-mood:hover {
+  opacity: 0.65;
+}
+
+.daily-card .daily-mood.is-on {
+  opacity: 1;
+  filter: none;
+  transform: scale(1.15);
+}
+
+.daily-card .daily-energy {
+  width: 20px;
+  height: 10px;
+  border-radius: 99px;
+  background: rgba(120, 120, 128, 0.16);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.theme-dark .daily-card .daily-energy {
+  background: rgba(235, 235, 245, 0.14);
+}
+
+.daily-card .daily-energy:hover {
+  background: rgba(120, 120, 128, 0.3);
+}
+
+.daily-card .daily-energy.is-on {
+  background: #ffd1a5;
+}
+
+/* ============================================================
+   玻璃卡片：所有 callout 通用
+   （Velocity 用 body:not(.disable-callout-styling) .callout 设了蓝色
+   渐变底，特异性更高，这里用同前缀的反超写法盖回来）
+   ============================================================ */
+.daily-card .callout,
+body:not(.disable-callout-styling) .daily-card .callout {
+  background: rgba(255, 255, 255, 0.55) !important;
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.65);
   border-radius: 20px;
   padding: 10px 16px 14px 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08) !important;
+  outline: 0;
+  margin: 0;
   --callout-icon: none;
 }
 
@@ -29,53 +222,109 @@
   font-weight: 700;
 }
 
+/* Velocity 会把标题染成 callout 主题色（蓝），统一成正文色，和 Home 卡片标题一致 */
+.daily-card .callout .callout-title-inner,
+body:not(.disable-callout-styling) .daily-card .callout .callout-title-inner {
+  color: var(--text-normal);
+}
+
 .daily-card .callout .callout-icon {
   display: none;
 }
 
-/* 四张卡片各自的浅色点缀 */
-.daily-card .callout[data-callout="summary"] {
-  border-left: 4px solid rgb(165, 205, 255);
+/* 四张卡各自的浅色点缀（CAL 配色） */
+.daily-card .callout[data-callout="todo"] {
+  border-left: 4px solid rgb(255, 183, 197);
+}
+
+.daily-card .callout[data-callout="good"] {
+  border-left: 4px solid rgb(255, 209, 165);
 }
 
 .daily-card .callout[data-callout="tip"] {
   border-left: 4px solid rgb(205, 182, 242);
 }
 
+.daily-card .callout[data-callout="tomorrow"] {
+  border-left: 4px solid rgb(165, 205, 255);
+}
+
+/* 旧版日记（2026-11-20 及更早）用的 success 卡 */
 .daily-card .callout[data-callout="success"] {
   border-left: 4px solid rgb(168, 224, 180);
 }
 
-.daily-card .callout[data-callout="todo"] {
-  border-left: 4px solid rgb(255, 183, 197);
-}
-
 /* 深色模式 */
-.theme-dark .daily-card .callout {
-  background: rgba(30, 30, 32, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-}
-
-.theme-dark .daily-card .callout[data-callout="summary"] {
-  border-left: 4px solid rgb(165, 205, 255);
-}
-
-.theme-dark .daily-card .callout[data-callout="tip"] {
-  border-left: 4px solid rgb(205, 182, 242);
-}
-
-.theme-dark .daily-card .callout[data-callout="success"] {
-  border-left: 4px solid rgb(168, 224, 180);
+.theme-dark .daily-card .callout,
+body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
+  background: rgba(30, 30, 32, 0.55) !important;
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
 }
 
 .theme-dark .daily-card .callout[data-callout="todo"] {
-  border-left: 4px solid rgb(255, 183, 197);
+  border-left-color: rgb(255, 183, 197);
 }
 
-/* 日记正文不要太宽 */
-.daily-card .markdown-preview-view {
-  max-width: 900px;
+.theme-dark .daily-card .callout[data-callout="good"] {
+  border-left-color: rgb(255, 209, 165);
+}
+
+.theme-dark .daily-card .callout[data-callout="tip"] {
+  border-left-color: rgb(205, 182, 242);
+}
+
+.theme-dark .daily-card .callout[data-callout="tomorrow"] {
+  border-left-color: rgb(165, 205, 255);
+}
+
+/* ---------- 今日日程玻璃卡（整行） ---------- */
+.daily-card .daily-schedule {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  padding: 10px 16px 14px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark .daily-card .daily-schedule {
+  background: rgba(30, 30, 32, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.daily-card .daily-schedule-title {
+  padding: 2px 6px 8px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.daily-card .daily-empty {
+  padding: 12px 8px 6px;
+  text-align: center;
+  font-size: 12px;
+  color: rgba(60, 60, 67, 0.45);
+}
+
+.theme-dark .daily-card .daily-empty {
+  color: rgba(235, 235, 245, 0.42);
+}
+
+/* 旧版日记兜底：旧模板的日程列表没有 .daily-schedule 包装，直接给 el-pre 上玻璃卡 */
+.daily-card .el-pre:has(> .block-language-dataviewjs > .daily-events):not(:has(.daily-schedule)) {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  padding: 10px 16px 14px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.theme-dark .daily-card .el-pre:has(> .block-language-dataviewjs > .daily-events):not(:has(.daily-schedule)) {
+  background: rgba(30, 30, 32, 0.55);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 /* ---------- 日记里的今日日程列表 ---------- */
@@ -83,7 +332,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin: 2px 0 10px 0;
+  margin: 2px 0 2px 0;
 }
 
 .daily-card .daily-ev {

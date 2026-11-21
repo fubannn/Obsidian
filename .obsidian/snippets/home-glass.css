@@ -2,8 +2,8 @@
    Delphi Home — 参考图式桌面 Dashboard
    只对包含 .home-dash 的笔记生效（Home.md）
    依赖：Dataview 插件（dataviewjs 代码块）
-   布局：横幅 → 分类卡片墙 → 快速添加/本周总览/近期日程
-         → 分类进度 → 热力图 + 日历
+   布局：横幅 → 分类卡片墙 → 主区四列
+         （日历+热力图 / 本周+快速添加 / 日程+最近笔记 / 今日时间轴）
    ============================================================ */
 
 /* ---------- 主题变量 ---------- */
@@ -17,9 +17,11 @@
   --hp-hover: rgba(120, 120, 128, 0.1);
   --hp-track: rgba(120, 120, 128, 0.13);
   --hp-input-bg: rgba(255, 255, 255, 0.75);
+  --hp-solid: #ffffff; /* 不透明的卡片底色，用来给半透明色块垫底 */
 }
 
 .theme-dark .home-page {
+  --hp-solid: #2c2d32;
   --hp-card-bg: rgba(38, 39, 43, 0.62);
   --hp-card-border: rgba(255, 255, 255, 0.1);
   --hp-card-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
@@ -185,7 +187,6 @@
 .home-page .home-card,
 .home-page .home-cat,
 .home-page .home-focus,
-.home-page .home-dir-card,
 .home-page .home-hero {
   background: var(--hp-card-bg);
   border: 1px solid var(--hp-card-border);
@@ -503,7 +504,7 @@
 .home-page .home-main > .home-heat { grid-column: 1; grid-row: 2; }
 .home-page .home-main > .home-agenda { grid-column: 3; grid-row: 1; }
 .home-page .home-main > .home-recent { grid-column: 3; grid-row: 2; }
-.home-page .home-main > .home-dir { grid-column: 4; grid-row: 1 / 3; }
+.home-page .home-main > .home-timeline { grid-column: 4; grid-row: 1 / 3; }
 
 .home-page .home-card {
   display: flex;
@@ -838,63 +839,266 @@
   color: var(--hp-text-2);
 }
 
-/* ---------- 4. 分类进度：主区第一列的纵向 6 张 ---------- */
-.home-page .home-dir {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: repeat(6, minmax(0, 1fr));
-  gap: 10px;
-  min-height: 0;
-}
-
-.home-page .home-dir-card {
-  padding: 10px 14px;
-  min-width: 0;
-  min-height: 0;
+/* ---------- 4. 今日时间轴：主区第四列纵向通栏 ---------- */
+.home-page .home-timeline {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  padding: 12px 14px 14px;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.home-page .home-dir-head {
+/* 全天日程胶囊 */
+.home-page .home-tl-allday {
+  flex: none;
   display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.home-page .home-tl-allday-label {
+  flex: none;
+  padding-top: 3px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--hp-text-3);
+}
+
+.home-page .home-tl-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  min-width: 0;
+}
+
+.home-page .home-tl-chip {
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
-}
-
-.home-page .home-dir-name {
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.home-page .home-dir-count {
-  margin-left: auto;
+  gap: 5px;
+  max-width: 100%;
+  padding: 2px 8px;
+  border-radius: 99px;
+  background: rgba(120, 120, 128, 0.1);
+  background: color-mix(in srgb, var(--c) 24%, transparent);
   font-size: 11px;
-  color: var(--hp-text-2);
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.home-page .home-tl-chip:hover {
+  background: color-mix(in srgb, var(--c) 40%, transparent);
+}
+
+.home-page .home-tl-chip-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c);
+}
+
+.home-page .home-tl-chip-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.home-page .home-tl-chip.is-done {
+  opacity: 0.5;
+}
+
+.home-page .home-tl-chip.is-done .home-tl-chip-name {
+  text-decoration: line-through;
+}
+
+/* 时间轴主体 */
+.home-page .home-tl-body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  margin-top: 2px;
+}
+
+.home-page .home-tl-hours {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+}
+
+.home-page .home-tl-hour {
+  position: absolute;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--hp-text-3);
   font-variant-numeric: tabular-nums;
 }
 
-.home-page .home-dir-track {
-  height: 5px;
-  border-radius: 99px;
+.home-page .home-tl-track {
+  position: absolute;
+  left: 32px;
+  right: 2px;
+  top: 0;
+  bottom: 0;
+}
+
+.home-page .home-tl-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
   background: var(--hp-track);
+  opacity: 0.7;
+}
+
+.home-page .home-tl-line.is-edge {
+  opacity: 1;
+}
+
+/* 定时日程块：底色不透明，避免整点横线从色块里透出来 */
+.home-page .home-tl-event {
+  position: absolute;
+  min-height: 20px;
+  border-left: 3px solid var(--c);
+  border-radius: 7px;
+  background: #eef0f4;
+  background: color-mix(in srgb, var(--c) 24%, var(--hp-solid));
   overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(30, 40, 60, 0.05);
+  transition: transform 0.12s ease;
+  /* 以自身为容器：色块矮到放不下两行时，下面的 @container 把标题和时间并成一行 */
+  container-type: size;
+  container-name: tlev;
 }
 
-.home-page .home-dir-fill {
+.home-page .home-tl-event:hover {
+  transform: translateX(1px);
+}
+
+.home-page .home-tl-ev-in {
   height: 100%;
-  border-radius: 99px;
-  opacity: 0.85;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-.home-page .home-dir-sub {
-  font-size: 10px;
-  color: var(--hp-text-3);
-  margin-top: 5px;
+.home-page .home-tl-ev-title {
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.home-page .home-tl-ev-time {
+  font-size: 9.5px;
+  color: var(--hp-text-2);
+  line-height: 1.3;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 两行（标题+时间）至少要 ~36px 高；再矮就并成一行 */
+@container tlev (max-height: 34px) {
+  .home-page .home-tl-ev-in {
+    flex-direction: row;
+    align-items: center;
+    gap: 7px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .home-page .home-tl-ev-time {
+    flex: none;
+  }
+}
+
+/* 一行还又窄（重叠日程分列后）：标题优先，时间收进悬停提示 */
+@container tlev (max-height: 34px) and (max-width: 170px) {
+  .home-page .home-tl-ev-time {
+    display: none;
+  }
+}
+
+/* 已结束 / 已完成的日程变淡（用调浅底色和文字色，不用 opacity，横线才不会透出来） */
+.home-page .home-tl-event.is-past,
+.home-page .home-tl-event.is-done {
+  background: color-mix(in srgb, var(--c) 11%, var(--hp-solid));
+  border-left-color: color-mix(in srgb, var(--c) 55%, var(--hp-solid));
+  box-shadow: none;
+}
+
+.home-page .home-tl-event.is-past .home-tl-ev-title,
+.home-page .home-tl-event.is-done .home-tl-ev-title {
+  font-weight: 500;
+  color: var(--hp-text-2);
+}
+
+.home-page .home-tl-event.is-past .home-tl-ev-time,
+.home-page .home-tl-event.is-done .home-tl-ev-time {
+  color: var(--hp-text-3);
+}
+
+.home-page .home-tl-event.is-done .home-tl-ev-title {
+  text-decoration: line-through;
+}
+
+/* “现在”红线 */
+.home-page .home-tl-now {
+  position: absolute;
+  left: -4px;
+  right: -2px;
+  height: 0;
+  border-top: 1.5px solid #e57078;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.home-page .home-tl-now::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: -4.5px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e57078;
+}
+
+.home-page .home-tl-now-label {
+  position: absolute;
+  right: 0;
+  top: -8px;
+  padding: 0 6px;
+  border-radius: 99px;
+  background: #e57078;
+  color: #fff;
+  font-size: 9px;
+  line-height: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 空状态 */
+.home-page .home-tl-quiet {
+  position: absolute;
+  left: 32px;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-size: 11px;
+  color: var(--hp-text-3);
+  pointer-events: none;
 }
 
 /* ---------- 5. 热力图 + 日历 ---------- */
@@ -1139,12 +1343,10 @@
   .home-page .home-main > .home-cal { grid-column: 2; grid-row: 1; }
   .home-page .home-main > .home-heat { grid-column: 2; grid-row: 2; }
 
-  .home-page .home-main > .home-dir {
+  .home-page .home-main > .home-timeline {
     grid-column: 1 / span 2;
     grid-row: 3;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: auto;
-    grid-auto-rows: 92px;
+    min-height: 480px;
   }
 
   .home-page .home-main > .home-agenda {
@@ -1188,18 +1390,20 @@
   .home-page .home-main > .home-heat,
   .home-page .home-main > .home-cal,
   .home-page .home-main > .home-agenda,
-  .home-page .home-main > .home-recent,
-  .home-page .home-main > .home-dir {
+  .home-page .home-main > .home-recent {
     grid-column: auto;
     grid-row: auto;
   }
 
-  .home-page .home-main > .home-dir {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-auto-rows: 88px;
+  /* 时间轴竖着长，占两个自动行（300px×2），并取消 1150px 档给它的 min-height，免得压到下一张卡 */
+  .home-page .home-main > .home-timeline {
+    grid-column: auto;
+    grid-row: span 2;
+    min-height: 0;
   }
 
+  /* 1150px 档给 agenda 设的 min-height:300px 在这里和 300px 的自动行一样高，不用再撑 */
   .home-page .home-main > .home-agenda {
-    min-height: 320px;
+    min-height: 0;
   }
 }
