@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
+                "file": "98_Templates/Daily-Note.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "Daily-Note"
             }
           }
         ]
@@ -219,6 +219,8 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "98_Templates/Daily-Note.md.tmp.25108.7cdccc5bebb2",
+    "Home.md",
     "02_Courses/大学物理/作业/大学物理作业（第十八、十九、二十章）.md",
     "01_Diary/2026-11-20.md",
     "02_Courses/大学物理/作业/未确认 758170.crdownload",
@@ -228,7 +230,6 @@
     "02_Courses/新建文件夹",
     "02_Courses/计算机网络/作业/大作业/录屏脚本-李博楠 1.md",
     "02_Courses/计算机网络/作业/大作业/录屏脚本-李博楠.md",
-    "Home.md",
     "02_Courses/计算机网络/作业/大作业/计网课程实践2026年.pdf",
     "02_Courses/计算机网络/作业/大作业",
     "02_Courses/计算机网络/作业/大作业",
