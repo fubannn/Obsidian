@@ -420,11 +420,13 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 }
 
 /* 壁纸下的容器链全部透明、不滚动（fixed 定位接管） */
-.daily-desk .markdown-preview-view {
+.workspace-leaf-content:has(.daily-desk) .markdown-preview-view {
   overflow: hidden !important;
 }
 
-.daily-desk .view-content {
+/* view-content 是 .daily-desk(.markdown-preview-view) 的祖先，
+   只能用 :has() 从窗格根往下选（.daily-desk .view-content 永远匹配不上） */
+.workspace-leaf-content:has(.daily-desk) .view-content {
   container-type: size;
   transform: translateZ(0); /* 给 fixed 后代当包含块（单 container-type 不够） */
 }
@@ -783,7 +785,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 
 /* ---------- 窄窗格：恢复滚动，纵向单列 ---------- */
 @media (max-width: 1150px) {
-  .daily-desk .markdown-preview-view {
+  .workspace-leaf-content:has(.daily-desk) .markdown-preview-view {
     overflow-y: auto !important;
   }
 
