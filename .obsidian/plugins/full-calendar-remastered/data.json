@@ -153,17 +153,19 @@
       "created.total": 4,
       "created.local": 4,
       "meta.firstActionAt": 1794997037394,
-      "meta.lastActionAt": 1795186025642,
+      "meta.lastActionAt": 1795230033642,
       "day.action.2026-11-18": 4,
       "day.created.2026-11-18": 2,
       "deleted.total": 1,
       "deleted.local": 1,
-      "updated.total": 14,
-      "updated.local": 14,
+      "updated.total": 16,
+      "updated.local": 16,
       "day.action.2026-11-19": 2,
       "day.created.2026-11-19": 2,
       "day.action.2026-11-20": 13,
-      "meta.nightOwlOps": 2
+      "meta.nightOwlOps": 2,
+      "day.action.2026-11-21": 2,
+      "meta.weekendWarriorOps": 2
     },
     "unlockedAt": {},
     "shown": {}
