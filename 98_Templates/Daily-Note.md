@@ -267,4 +267,31 @@ if (!day) {
     }
   }
 }
+
+/* ---- 打开日记自动切到阅读视图（桌面版式只在阅读模式渲染） ----
+   用户主动 Ctrl+E 编辑（焦点在编辑器里）时不弹回，同 Home 的做法 */
+function lockDeskToPreview() {
+  try {
+    for (const leaf of app.workspace.getLeavesOfType("markdown")) {
+      const v = leaf.view;
+      if (!v || !v.file) continue;
+      const fm = app.metadataCache.getFileCache(v.file)?.frontmatter;
+      const cls = fm?.cssclasses;
+      const list = Array.isArray(cls) ? cls : cls ? String(cls).split(/\s+/) : [];
+      if (!list.includes("daily-desk")) continue;
+      if (typeof v.getMode === "function" && v.getMode() !== "source") continue;
+      const cmEl = v.contentEl?.querySelector?.(".cm-editor");
+      if (cmEl && cmEl.contains(document.activeElement)) continue;
+      const vs = leaf.getViewState();
+      if (vs?.state && vs.state.mode !== "preview") {
+        leaf.setViewState({ ...vs, state: { ...vs.state, mode: "preview" } }, { focus: false });
+      }
+    }
+  } catch (e) { console.warn("[daily-desk] lock preview failed", e); }
+}
+if (!window.__ddDeskModeHook) {
+  window.__ddDeskModeHook = true;
+  app.workspace.on("file-open", () => setTimeout(lockDeskToPreview, 120));
+}
+setTimeout(lockDeskToPreview, 200);
 ```

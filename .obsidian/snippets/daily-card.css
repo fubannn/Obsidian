@@ -419,6 +419,17 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
   display: none !important;
 }
 
+/* 兜底（真实库的块包装类名与预期可能不同，上面的选择器可能匹配不上）：
+   阅读模式下源块一律隐藏，只显示承载桌面的那个 dataviewjs 块。
+   桌面卡片是半透明玻璃，源块漏出来会隔着玻璃透出模糊蓝影。 */
+.workspace-leaf-content:has(.daily-desk) .markdown-preview-sizer > * {
+  display: none !important;
+}
+
+.workspace-leaf-content:has(.daily-desk) .markdown-preview-sizer > .el-pre:has(.daily-desk-root) {
+  display: block !important;
+}
+
 /* 壁纸下的容器链全部透明、不滚动（fixed 定位接管） */
 .workspace-leaf-content:has(.daily-desk) .markdown-preview-view {
   overflow: hidden !important;

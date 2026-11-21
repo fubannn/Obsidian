@@ -656,14 +656,28 @@ nextBtn.addEventListener("click", () => { viewMonth = viewMonth.plus({ months: 1
 todayBtn.addEventListener("click", () => { viewMonth = today.startOf("month"); renderMonth(); });
 el(calCard, "div", "home-hint", "点击日期打开 / 创建当天日记");
 
-/* ===== 桌面模式：Home 打开时自动锁定阅读视图 =====
+/* ===== 桌面模式：Home 和日记桌面（daily-desk）打开时自动锁定阅读视图 =====
    阅读视图没有光标、不可编辑、页面不滚动，才是真正的“桌面”。
-   若用户正把光标放在编辑器里（主动按 Ctrl+E 编辑），则不打扰。 */
-function lockHomeToPreview() {
+   若用户正把光标放在编辑器里（主动按 Ctrl+E 编辑），则不打扰。
+   注意：这个钩子必须挂在 Home 的 dataviewjs 里（启动即注册）——
+   模板里的钩子救不了新建日记，因为日记以编辑模式打开时 dataviewjs 根本不执行。 */
+function lockHomeToPreview(onlyPath) {
   try {
     for (const leaf of app.workspace.getLeavesOfType("markdown")) {
       const v = leaf.view;
-      if (!v || v.file?.path !== "Home.md") continue;
+      if (!v || !v.file) continue;
+      if (onlyPath && v.file.path !== onlyPath) continue;
+      // Home 与日记桌面都要锁；新建日记时 frontmatter 可能还没进 metadataCache，
+      // 路径在日记文件夹里也算
+      const p = v.file.path;
+      const fm = app.metadataCache.getFileCache?.(v.file)?.frontmatter;
+      const cls = fm?.cssclasses;
+      const list = Array.isArray(cls) ? cls : cls ? String(cls).split(/\s+/) : [];
+      const isDesk = p === "Home.md"
+        || list.includes("home-page")
+        || list.includes("daily-desk")
+        || p.startsWith(diaryFolder + "/");
+      if (!isDesk) continue;
       if (typeof v.getMode === "function" && v.getMode() === "preview") continue;
       const cmEl = v.contentEl?.querySelector?.(".cm-editor");
       if (cmEl && cmEl.contains(document.activeElement)) continue;
@@ -683,7 +697,10 @@ function lockHomeToPreview() {
 if (!window.__homeDeskModeHook) {
   window.__homeDeskModeHook = true;
   app.workspace.on("file-open", (file) => {
-    if (file && file.path === "Home.md") setTimeout(lockHomeToPreview, 80);
+    if (!file) return;
+    // 新建日记时 frontmatter 解析有延迟，多补几次；只锁定刚打开的这个文件，
+    // 不去动其他叶子里用户可能正在编辑的笔记
+    [80, 400, 1200].forEach((ms) => setTimeout(() => lockHomeToPreview(file.path), ms));
   });
 }
 setTimeout(lockHomeToPreview, 150);
