@@ -11,14 +11,10 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Home.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "新标签页"
             }
           }
         ]
@@ -217,11 +213,11 @@
       "full-calendar-remastered:Open calendar agent": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "40914fa654e4efb3",
   "lastOpenFiles": [
     "01_Diary/2026-11-21.md",
-    "Home.md",
     "01_Diary/2026-11-20.md",
+    "Home.md",
     "Home.md.tmp.25108.687fcf60e1fb",
     "98_Templates/Daily-Note.md",
     "98_Templates/Daily-Note.md.tmp.25108.7980514b896e",
