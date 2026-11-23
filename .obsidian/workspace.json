@@ -11,10 +11,14 @@
             "id": "e7a7b303c61786dc",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Home.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "Home"
             }
           }
         ]
@@ -213,13 +217,15 @@
       "full-calendar-remastered:Open calendar agent": false
     }
   },
-  "active": "40914fa654e4efb3",
+  "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
-    "01_Diary/2026-11-21.md",
-    "01_Diary/2026-11-20.md",
+    "05_Calendar/Life/2026-11-22 志愿.md",
     "Home.md",
-    "Home.md.tmp.25108.687fcf60e1fb",
+    "test.md",
     "98_Templates/Daily-Note.md",
+    "01_Diary/2026-11-20.md",
+    "01_Diary/2026-11-21.md",
+    "Home.md.tmp.25108.687fcf60e1fb",
     "98_Templates/Daily-Note.md.tmp.25108.7980514b896e",
     "05_Calendar/Assignments/2026-11-20 大物作业.md",
     "98_Templates/Daily-Note.md.tmp.25108.7cdccc5bebb2",
@@ -234,7 +240,6 @@
     "02_Courses/计算机网络/作业/大作业/计网课程实践2026年.pdf",
     "02_Courses/计算机网络/作业/大作业",
     "04_Research/02_Write_Read.md",
-    "test.md",
     "05_Calendar/Assignments/2026-11-20 计网大作业.md",
     "05_Calendar/Assignments/2026-11-19 电路作业.md",
     "98_Templates/Daily-Note.md.md",
