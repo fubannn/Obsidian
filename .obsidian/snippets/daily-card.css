@@ -509,15 +509,15 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 .daily-desk .dd-hero-left { min-width: 0; }
 
 .daily-desk .dd-hero-date {
-  font-size: 30px;
+  font-size: 40px;
   font-weight: 700;
   letter-spacing: -0.5px;
   line-height: 1.15;
 }
 
 .daily-desk .dd-hero-sub {
-  margin-top: 4px;
-  font-size: 12px;
+  margin-top: 6px;
+  font-size: 14px;
   color: rgba(60, 60, 67, 0.6);
 }
 
@@ -539,7 +539,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 }
 
 .daily-desk .daily-meter-label {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 2px;
   color: rgba(60, 60, 67, 0.45);
 }
@@ -555,7 +555,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 }
 
 .daily-desk .daily-mood {
-  font-size: 17px;
+  font-size: 20px;
   line-height: 1;
   cursor: pointer;
   opacity: 0.32;
@@ -600,12 +600,12 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 }
 
 .daily-desk .dd-title {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 700;
 }
 
 .daily-desk .dd-hint {
-  font-size: 10px;
+  font-size: 12px;
   color: rgba(60, 60, 67, 0.4);
   opacity: 0;
   transition: opacity 0.15s ease;
@@ -619,7 +619,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 
 .daily-desk .dd-note {
   margin-left: auto;
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(60, 60, 67, 0.5);
   font-variant-numeric: tabular-nums;
 }
@@ -630,10 +630,10 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 
 .daily-desk .dd-pill {
   flex: none;
-  padding: 2px 10px;
+  padding: 3px 12px;
   border-radius: 99px;
   border: 1px solid rgba(120, 120, 128, 0.22);
-  font-size: 11px;
+  font-size: 13px;
   cursor: pointer;
   color: rgba(60, 60, 67, 0.7);
   transition: background 0.12s ease;
@@ -659,7 +659,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 
 .daily-desk .dd-placeholder {
   color: rgba(60, 60, 67, 0.35);
-  font-size: 13px;
+  font-size: 15px;
   user-select: none;
 }
 
@@ -668,7 +668,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 }
 
 .daily-desk .dd-md {
-  font-size: 13.5px;
+  font-size: 16px;
   line-height: 1.75;
 }
 
@@ -688,7 +688,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
   resize: none;
   background: transparent;
   font-family: inherit;
-  font-size: 13.5px;
+  font-size: 16px;
   line-height: 1.75;
   color: var(--text-normal);
   box-sizing: border-box;
@@ -708,10 +708,10 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 .daily-desk .dd-ev {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
+  gap: 9px;
+  padding: 8px 10px;
   border-radius: 10px;
-  font-size: 13.5px;
+  font-size: 15.5px;
   transition: background 0.12s ease;
 }
 
@@ -725,8 +725,8 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 
 .daily-desk .dd-ev-check {
   flex: none;
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
   border: 1.5px solid var(--c, rgba(120, 120, 128, 0.5));
   cursor: pointer;
@@ -758,7 +758,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 
 .daily-desk .dd-ev-time {
   flex: none;
-  font-size: 11.5px;
+  font-size: 13.5px;
   color: rgba(60, 60, 67, 0.55);
   font-variant-numeric: tabular-nums;
 }
@@ -770,7 +770,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 .daily-desk .dd-ev-cal {
   margin-left: auto;
   flex: none;
-  font-size: 11px;
+  font-size: 13px;
   color: rgba(60, 60, 67, 0.45);
 }
 
@@ -786,7 +786,7 @@ body:not(.disable-callout-styling) .theme-dark .daily-card .callout {
 .daily-desk .dd-empty {
   padding: 16px 8px;
   text-align: center;
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(60, 60, 67, 0.45);
 }
 
