@@ -150,23 +150,26 @@
   },
   "milestones": {
     "counters": {
-      "created.total": 4,
-      "created.local": 4,
+      "created.total": 11,
+      "created.local": 11,
       "meta.firstActionAt": 1794997037394,
-      "meta.lastActionAt": 1795359396326,
+      "meta.lastActionAt": 1795512373494,
       "day.action.2026-11-18": 4,
       "day.created.2026-11-18": 2,
       "deleted.total": 1,
       "deleted.local": 1,
-      "updated.total": 20,
-      "updated.local": 20,
+      "updated.total": 24,
+      "updated.local": 24,
       "day.action.2026-11-19": 2,
       "day.created.2026-11-19": 2,
       "day.action.2026-11-20": 13,
       "meta.nightOwlOps": 3,
       "day.action.2026-11-21": 2,
       "meta.weekendWarriorOps": 6,
-      "day.action.2026-11-22": 4
+      "day.action.2026-11-22": 4,
+      "day.action.2026-11-24": 11,
+      "day.created.2026-11-24": 7,
+      "tz.Asia/Hong_Kong": 1
     },
     "unlockedAt": {},
     "shown": {}
