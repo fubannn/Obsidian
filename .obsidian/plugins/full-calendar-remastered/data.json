@@ -7,7 +7,7 @@
       "mini-month": false,
       "up-next": true,
       "task-backlog": true,
-      "agent": false
+      "agent": true
     },
     "moduleOrder": [
       "mini-month",
