@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Home.md",
-                "mode": "source",
+                "file": "02_Courses/复变函数/作业/复变函数第八次作业.md",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Home"
+              "title": "复变函数第八次作业"
             }
           }
         ]
@@ -219,19 +219,22 @@
   },
   "active": "e7a7b303c61786dc",
   "lastOpenFiles": [
+    "Home.md",
+    "02_Courses/复变函数/作业/复变函数第八次作业.md",
+    "02_Courses/复变函数/作业",
+    "02_Courses/复变函数/新建文件夹",
+    "02_Courses/复变函数",
+    "02_Courses/复变函数】",
+    "02_Courses/新建文件夹",
     "01_Diary/2026-11-24.md",
     "01_Diary/2026-11-23.md",
     "01_Diary/2026-11-22.md",
-    "Home.md",
     "05_Calendar/Assignments/2026-11-30 近代史论文.md",
     "98_Templates/Daily-Note.md.tmp.47992.ef49b5866928",
     "98_Templates/Daily-Note.md.tmp.47992.0fb2a1906634",
     "98_Templates/Daily-Note.md.tmp.47992.fb441477cef5",
     "98_Templates/Daily-Note.md.tmp.47992.00c4d5b8f212",
     "98_Templates/Daily-Note.md.tmp.47992.05277f73dbc5",
-    "98_Templates/Daily-Note.md.tmp.47992.596339ae1bee",
-    "98_Templates/Daily-Note.md.tmp.47992.bd25d4d6716d",
-    "98_Templates/Daily-Note.md.tmp.47992.8c9f0abb321f",
     "05_Calendar/Exams/2027-01-11 大物考试.md",
     "05_Calendar/Exams/2027-01-07 复变考试.md",
     "05_Calendar/Exams/2027-01-04 电路考试.md",
@@ -245,8 +248,6 @@
     "98_Templates/Daily-Note.md",
     "01_Diary/2026-11-20.md",
     "01_Diary/2026-11-21.md",
-    "Home.md.tmp.25108.687fcf60e1fb",
-    "98_Templates/Daily-Note.md.tmp.25108.7980514b896e",
     "05_Calendar/Assignments/2026-11-20 大物作业.md",
     "02_Courses/大学物理/作业/大学物理作业（第十八、十九、二十章）.md",
     "02_Courses/计算机网络/作业/大作业/录屏脚本-李博楠 1.md",
@@ -254,7 +255,6 @@
     "04_Research/02_Write_Read.md",
     "05_Calendar/Assignments/2026-11-20 计网大作业.md",
     "05_Calendar/Assignments/2026-11-19 电路作业.md",
-    "98_Templates/Daily-Note.md.md",
     "Pasted image 20261118170053.png",
     "未命名.canvas"
   ]
