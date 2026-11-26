@@ -13,15 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "02_Courses/复变函数/作业/复变函数第八次作业.md",
+                "file": "Home.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "复变函数第八次作业"
+              "title": "Home"
+            }
+          },
+          {
+            "id": "c5e044336aa1107a",
+            "type": "leaf",
+            "state": {
+              "type": "full-calendar-view",
+              "state": {},
+              "icon": "calendar-glyph",
+              "title": "Calendar"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -217,10 +228,10 @@
       "full-calendar-remastered:Open calendar agent": false
     }
   },
-  "active": "e7a7b303c61786dc",
+  "active": "c5e044336aa1107a",
   "lastOpenFiles": [
-    "Home.md",
     "02_Courses/复变函数/作业/复变函数第八次作业.md",
+    "Home.md",
     "02_Courses/复变函数/作业",
     "02_Courses/复变函数/新建文件夹",
     "02_Courses/复变函数",
