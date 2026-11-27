@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03_Projects/数模/26亚太杯/建模/问题1_v3.md",
+                "file": "03_Projects/数模/26亚太杯/求解/问题1.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "问题1_v3"
+              "title": "问题1"
             }
           }
         ]
@@ -83,7 +83,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 212.83334350585938
   },
   "right": {
     "id": "98546446d7327ba1",
@@ -219,22 +219,26 @@
   },
   "active": "3dbe13c1feb7caca",
   "lastOpenFiles": [
+    "03_Projects/数模/26亚太杯/建模/问题1_v3.md",
+    "03_Projects/数模/26亚太杯/论文/问题重述v1.2.md",
+    "03_Projects/数模/26亚太杯/求解/问题1.md",
+    "03_Projects/数模/26亚太杯/求解/问题1_图表选用清单.md",
+    "tables/14_paired_rank6_challenge.csv.md",
+    "tables",
+    "03_Projects/数模/26亚太杯/求解/未确认 258790.crdownload",
+    "03_Projects/数模/26亚太杯/求解/未确认 503441.crdownload",
+    "03_Projects/数模/26亚太杯/求解",
+    "03_Projects/数模/26亚太杯/新建文件夹",
     "03_Projects/数模/26亚太杯/论文/问题重述v1.1.md",
     "03_Projects/数模/26亚太杯/论文/问题重述v1.0.md",
-    "03_Projects/数模/26亚太杯/建模/问题1_v3.md",
     "03_Projects/数模/26亚太杯/论文/问题重述修改方案.md",
     "03_Projects/数模/26亚太杯/建模/未确认 804130.crdownload",
     "03_Projects/数模/26亚太杯/建模",
-    "03_Projects/数模/26亚太杯/新建文件夹",
     "Home.md",
     "03_Projects/数模/26亚太杯/论文",
     "03_Projects/数模/26亚太杯",
     "03_Projects/数模",
     "02_Courses/复变函数/作业/复变函数第八次作业.md",
-    "02_Courses/复变函数/作业",
-    "02_Courses/复变函数/新建文件夹",
-    "02_Courses/复变函数",
-    "02_Courses/复变函数】",
     "01_Diary/2026-11-24.md",
     "01_Diary/2026-11-23.md",
     "01_Diary/2026-11-22.md",
@@ -251,10 +255,6 @@
     "test.md",
     "98_Templates/Daily-Note.md",
     "01_Diary/2026-11-20.md",
-    "01_Diary/2026-11-21.md",
-    "05_Calendar/Assignments/2026-11-20 大物作业.md",
-    "02_Courses/大学物理/作业/大学物理作业（第十八、十九、二十章）.md",
-    "02_Courses/计算机网络/作业/大作业/录屏脚本-李博楠 1.md",
     "Pasted image 20261118170053.png",
     "未命名.canvas"
   ]
