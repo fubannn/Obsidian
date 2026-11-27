@@ -5,9 +5,9 @@
     "isCollapsed": false,
     "collapsedModules": {
       "mini-month": false,
-      "up-next": true,
-      "task-backlog": true,
-      "agent": true
+      "up-next": false,
+      "task-backlog": false,
+      "agent": false
     },
     "moduleOrder": [
       "mini-month",
