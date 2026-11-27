@@ -37,12 +37,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "03_Projects/数模/26亚太杯/建模/问题2_v5.md",
+                "file": "03_Projects/数模/26亚太杯/论文/问题二v1.0.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "问题2_v5"
+              "title": "问题二v1.0"
             }
           }
         ],
@@ -243,16 +243,18 @@
   },
   "active": "fd904ef9628b0e88",
   "lastOpenFiles": [
+    "03_Projects/数模/26亚太杯/建模/问题2_v5.md",
+    "03_Projects/数模/26亚太杯/求解/问题1.md",
+    "03_Projects/数模/26亚太杯/建模/问题1_v3.md",
+    "03_Projects/数模/26亚太杯/论文/问题二v1.0.md",
     "03_Projects/数模/26亚太杯/求解/问题2_求解结果_论文初稿.md",
     "Home.md",
     "03_Projects/数模/26亚太杯/求解/问题2_图表选用清单.md",
     "03_Projects/数模/26亚太杯/求解/问题2_v7_补充验证与复算报告.md",
-    "03_Projects/数模/26亚太杯/建模/问题2_v5.md",
     "03_Projects/数模/26亚太杯/论文/问题一v1.2.md",
     "03_Projects/数模/26亚太杯/建模/未确认 983048.crdownload",
     "03_Projects/数模/26亚太杯/论文/问题一v1.1.md",
     "03_Projects/数模/26亚太杯/论文/问题一v1.0.md",
-    "03_Projects/数模/26亚太杯/求解/问题1.md",
     "03_Projects/数模/26亚太杯/求解/问题1_图表选用清单.md",
     "01_Diary/2026-11-24.md",
     "01_Diary/2026-11-23.md",
@@ -261,7 +263,6 @@
     "03_Projects/数模/26亚太杯/论文/问题重述v1.2.md",
     "03_Projects/数模/26亚太杯/论文/问题重述v1.1.md",
     "03_Projects/数模/26亚太杯/论文/问题重述v1.0.md",
-    "03_Projects/数模/26亚太杯/建模/问题1_v3.md",
     "tables/14_paired_rank6_challenge.csv.md",
     "tables",
     "03_Projects/数模/26亚太杯/求解/未确认 258790.crdownload",
@@ -278,7 +279,6 @@
     "05_Calendar/Exams/2027-01-11 大物考试.md",
     "05_Calendar/Exams/2027-01-07 复变考试.md",
     "05_Calendar/Exams/2027-01-04 电路考试.md",
-    "05_Calendar/Exams/2026-12-21 数据结构考试.md",
     "Pasted image 20261118170053.png",
     "未命名.canvas"
   ]
